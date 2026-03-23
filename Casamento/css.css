@@ -8,6 +8,8 @@
     top: 0;
     left: 0;
     z-index: 1;
+    border: 1px solid red;
+
 }
 
 #topo a{
@@ -19,7 +21,7 @@
     padding-left: 6%;
     padding-top: 20px;
     padding-bottom: 20px;
-    /* border: 1px solid red; */
+    border: 1px solid red;
 }
 
 

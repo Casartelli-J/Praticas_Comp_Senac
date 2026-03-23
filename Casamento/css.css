@@ -12,12 +12,12 @@ header{
     width: 100%;
     background-color: #eaccad;
     overflow: hidden;
-    /* position: fixed; */
-    height: 10%;
-    /* top: 0; */
+    position: fixed;
+    height: 12%;
+    top: 0;
     /* left: 0; */
     /* z-index: 1; */
-    border: 1px solid red;
+    /* border: 1px solid red; */
 
 }
 
@@ -26,9 +26,9 @@ header a{
     color: #96305a;
     font-size: 30px;
     float: left;
-    margin: 0% 5%;
+    margin: 1% 5%;
     padding: 1%;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 header a:hover{
@@ -53,11 +53,20 @@ body{
     font-size: 120px;
     animation: transicao;
     animation-duration: 3s;
-    margin-top: 12%;
+    margin-top: 16%;
     margin-bottom: 20%;
 }
 
 #presenca{
     text-align: center;
     font-size: 40px;
+    padding: 15%;
+    /* border: 1px solid red; */
+}
+
+#lugar{
+    text-align: center;
+    font-size: 40px;
+    padding: 15%;
+    /* border: 1px solid red; */
 }

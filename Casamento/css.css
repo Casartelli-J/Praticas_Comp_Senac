@@ -15,10 +15,13 @@ header{
     position: fixed;
     height: 12%;
     top: 0;
-    /* left: 0; */
-    /* z-index: 1; */
     /* border: 1px solid red; */
 
+}
+
+header ul{
+    list-style: none;
+    /*float: left;*/
 }
 
 header a{
@@ -69,4 +72,24 @@ body{
     font-size: 40px;
     padding: 15%;
     /* border: 1px solid red; */
+}
+
+@media (max-width: 1360px){
+    header a{
+        text-decoration: none;
+        color: #96305a;
+        font-size: 25px;
+        float: left;
+        margin: 0 3%;
+        padding: 1%;
+    }
+
+    #SJ{
+        text-align: center;
+        font-size: 120px;
+        animation: transicao;
+        animation-duration: 3s;
+        margin-top: 14%;
+        margin-bottom: 13%;
+    }
 }

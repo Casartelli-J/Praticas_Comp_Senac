@@ -1,0 +1,145 @@
+body{
+    padding: 0;
+    margin: 0;
+    /* max-height: 768px; */
+    background-color: #0f3746;
+}
+
+header h5{
+    font-size: 16px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: bold;
+    margin-bottom: 0;
+    margin-top: 60px;
+    color: cyan;
+}
+
+header h1{
+    font-size: 40px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: bold;
+    margin-top: 20px;
+    color: cyan;
+}
+
+/* header{
+    border: 1px solid red;
+} */
+
+.container{
+    /* border: 1px solid red; */
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-bottom: 35%;
+    justify-content: center;
+}
+
+.bloco{
+    background: #027199;
+    color: #fff;
+    border: solid 1px #333;
+    border-radius: 15px;
+    font-size: 24px;
+    padding: 70px 20px;
+    text-align: center;
+    width: 20%;
+    margin: 20px 30px;
+    box-shadow: 5px 5px #0c2b36;
+}
+
+.bloco:hover{
+    position: relative;
+    box-shadow: 8px 8px #0c2b36;
+    animation: anim 0.2s linear forwards;
+
+}
+
+.bloco:active{
+    background-color: #035472;
+}
+
+.bloco h2{
+    /* border: 1px solid red; */
+    font-size: 24px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.bloco p{
+    font-size: 16px;
+    /* width: 20%; */
+    /* border: 1px solid red; */
+}
+
+.bloco .cleaner{
+    width: 80px;
+    height: 80px;
+    /* border: 1px solid red; */
+    margin-top: -40px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+}
+
+.retangulo{
+    background: #027199;
+    color: #fff;
+    border: solid 1px #333;
+    border-radius: 15px;
+    font-size: 24px;
+    padding: 40px 125px;
+    text-align: left;
+    width: 20%;
+    margin: 20px 30px;
+    box-shadow: 5px 5px #0c2b36;
+
+}
+
+.retangulo:hover{
+    position: relative;
+    box-shadow: 8px 8px #0c2b36;
+    animation: anim 0.2s linear forwards;
+
+}
+
+.retangulo:active{
+    background-color: #035472;
+}
+
+.retangulo h2{
+    /* border: 1px solid red; */
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    display: block;
+    width: 100%;
+    margin-top: -150px;
+    margin-left: 80px;
+}
+
+.retangulo .cleaner{
+    width: 160px;
+    height: 160px;
+    /* border: 1px solid red; */
+    /* margin-top: 40px; */
+    margin-bottom: 20px;
+    border-radius: 20px;
+    margin-left: -100px;
+    display: block;
+}
+
+.retangulo p{
+    font-size: 16px;
+    margin-left: 80px;
+    width: 100%;
+    /* border: 1px solid red; */
+}
+
+
+@keyframes anim {
+    from {top: 0px;}
+    to {top: -5px;}
+}

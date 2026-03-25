@@ -35,12 +35,56 @@ body{
 }
 
 .menu li a:hover{
-    color: green;
+    background-color: green;
 }
 
 .menu li a:active{
     color: rgb(3, 78, 3);
 }
+
+.container{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    /* justify-content: start, center, end, space-between, space-around, space-evenly; */
+    margin-top: 80px;
+    background: #000;
+    height: 400px;
+    align-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.bloco{
+    background: #0d89b7;
+    color: #fff;
+    border: solid 1px #333;
+    border-radius: 15px;
+    font-size: 48px;
+    padding: 20px 40px;
+    text-align: center;
+    margin: 5px;
+}
+
+/* .bloco:first-child{
+    order: 2;
+}
+
+.bloco:nth-child(2){
+    order: 1;
+}
+
+.bloco:nth-child(3){
+    order: 5;
+}
+
+.bloco:nth-child(4){
+    order: 3;
+}
+
+.bloco:nth-child(6){
+    order: 8;
+} */
 
 @media (max-width: 720px){
     .logo{

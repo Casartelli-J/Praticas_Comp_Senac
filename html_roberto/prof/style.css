@@ -1,0 +1,150 @@
+body{
+    background-color: #f1f5f9;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ########################### */
+/* ########CABEÇALHO########## */
+/* ########################### */
+
+header{
+    background-color: #fff;
+    /* width: 100%; */
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 80px;
+}
+
+.logo{
+    width: 20%;
+    /* border: 1px solid red; */
+    display: flex;
+    align-items: center;
+    /* flex-direction: row; */
+    /* justify-content: space-between; */
+}
+
+.logo .icone{
+    width: 40px;
+    height: 40px;
+    background: #0c4a6e;
+    border-radius: 10px;
+}
+
+.logo .icone img{
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border-radius: 10px;
+}
+.logo .icone img:hover{
+    background-color: #2980b9; 
+    transform: scale(1.05);
+    border-radius: 10px;
+}
+.logo .icone img:active{
+    background-color: rgb(25, 76, 110);
+    transform: scale(1);
+    border-radius: 10px;
+}
+
+.frase h2{
+    margin: 0 10px;
+    font-size: 17px;
+    color: #0c4a6e;
+}
+
+.frase p{
+    margin: 5px 10px 0 10px;
+    font-size: 14px;
+    color: #999;
+}
+
+.user p{
+    color: #fff;
+    background: orange;
+    width: 40px;
+    height: 30px;
+    text-align: center;
+    padding-top: 10px;
+    border-radius: 50%;
+}
+
+/* .principal{
+
+} */
+
+.container{
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.linha{
+    display: flex;
+    /* border: 1px solid red; */
+}
+
+.bloco{
+    width: 25%;
+    margin: 10px;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 20px;
+    box-shadow: 0 0 8px #696969;
+    min-height: 210px;
+    transition: transform 0.2s ease;
+}
+
+.bloco:hover{
+    transform: scale(1.03);
+    border-radius: 20px;
+
+}
+
+.bloco .frase h2{
+    font-size: 38px;
+    margin: 28px 0 0 20px;
+}
+
+.bloco .frase p{
+    margin: 22px 0 0 20px;
+    font-size: 16px;
+}
+
+.bloco .icone{
+    width: 60px;
+    height: 60px;
+    background: #1370a5;
+    border-radius: 10px;
+    margin: 20px 0 0 20px
+}
+
+.bloco .icone img{
+    width: 100%;
+}
+
+.bloco-g{
+    /* border: 1px solid red; */
+    width: 60%;
+    margin-right: 10px;
+}
+
+.bloco-g .bloco{
+    width: 100%;
+    min-height: 370px;
+    box-sizing: border-box;
+}
+
+.bloco-m{
+    /* border: 1px solid red; */
+    width: 40%;
+    margin-left: 10px;
+}
+
+.bloco-m .bloco{
+    width: 100%;
+    box-sizing: border-box;
+}

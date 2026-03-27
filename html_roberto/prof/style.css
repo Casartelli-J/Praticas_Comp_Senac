@@ -17,6 +17,11 @@ header{
     border-bottom: 1px solid #ccc;
     padding: 20px;
     margin-bottom: 80px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 98%;
+    z-index: 10;
 }
 
 .logo{
@@ -85,10 +90,6 @@ header{
     padding-top: 10px;
     border-radius: 50%;
 }
-
-/* .principal{
-
-} */
 
 .container{
     max-width: 1280px;
@@ -163,6 +164,11 @@ header{
     width: 100%;
     min-height: 370px;
     box-sizing: border-box;
+    transition: none;
+}
+
+.bloco-g .bloco:hover{
+    transform: none;
 }
 
 .bloco-m{
@@ -181,7 +187,17 @@ header{
     background: #f7f7f7;
     border-radius: 20px;
     padding: 10px;
+    margin: 10px 0;
+    transition: transform 0.2s ease;
     /* border: 1px solid red; */
+}
+
+.prog:hover{
+    transform: scale(1.02);
+}
+
+.prog:active{
+    transform: scale(1);
 }
 
 .prog h3{
@@ -198,6 +214,52 @@ header{
 .prog .icone{
     margin-right: 20px;
     margin-top: 0px;
+}
+
+.principal{
+    margin-top: 180px;
+    margin-left: 250px;
+    transition: all 0.5s ease;
+}
+
+.lateral{
+    background: #FFF;
+    border-right: 1px solid #999;
+    margin-top: 100px;
+    padding: 40px 15px 15px 15px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 250px;
+    height: 100vh;
+    overflow: hidden;
+    transition: all 0.5s ease;
+}
+
+.conter-lateral img{
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+
+}
+
+.conter-lateral img:hover{
+    background-color: #2980b9; 
+    transform: scale(1.05);
+    border-radius: 10px;
+}
+
+.conter-lateral img:active{
+    background-color: rgb(25, 76, 110);
+    transform: scale(1);
+    border-radius: 10px;
+}
+
+#bt-menu:checked ~ .lateral{
+    width: 40px;
+}
+
+#bt-menu:checked ~ .principal{
+    margin-left: 40px;
 }
 
 @media (max-width: 820px){

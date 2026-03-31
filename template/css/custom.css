@@ -1,0 +1,41 @@
+body{
+    background: #4d13a5;
+    background: linear-gradient(90deg, rgba(77, 19, 165, 1) 30%, rgb(189, 118, 255) 100%);
+}
+
+
+.bloco{
+    background: #8000ff;
+    background: linear-gradient(90deg, rgba(128, 0, 255, 1) 40%, rgba(208, 161, 255, 1) 87%);
+}
+
+h2{
+    color: #4d13a5;
+}
+
+h3{
+    color: #8000ff;
+}
+
+h7{
+    color: black;
+}
+
+h8{
+    color: #8000ff;
+}
+
+em{
+    color: #4d13a5;
+    font-style: normal;
+}
+
+.bg-pri{
+    background-color: #4d13a5;
+    color: azure;
+}
+
+/* .bloco img{
+    width: 100%;
+} */
+

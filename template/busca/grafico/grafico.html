@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfico</title>
+    <script type="text/javascript" src="chart.umd.js"></script>
+</head>
+<body>
+    
+    <h2 id="confirmados">100</h2>
+    <p>Confirmados</p>
+
+    <h2 id="pendentes">67</h2>
+    <p>Pendentes</p>
+
+    <div id="grafico">
+        <canvas id="meuGrafico">
+            
+        </canvas>
+    </div>
+
+    <script type="text/javascript">
+        const pendentes = document.getElementById("pendentes").textContent;
+        const confirmados = document.getElementById("confirmados").textContent;
+        
+        const ctx = document.getElementById("meuGrafico").getContext("2d");
+        const meuGrafico = new Chart( ctx, {
+                type: "pie",
+                data: {
+                    labels: ['Confirmados', 'Pendentes'], 
+                    datasets: [{
+                        label: "Convidados",
+                        data: [confirmados, pendentes],
+                        backgroundColor: ['red', 'green'],
+                    }]
+                }
+            });
+
+
+    </script>
+
+</body>
+</html>

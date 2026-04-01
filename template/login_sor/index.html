@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introdução ao bootstrap</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <style type="text/css">
+        .tela{
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body class="bg-success bg-gradient">
+    
+    <div class="container">
+        <div class="row tela justify-content-center align-content-center">
+            <div class="col-9 shadow rounded-4">
+                <div class="row">
+                    <div class="col-sm-8"><img src="../moon.png" alt="Lua" class="d-block mx-auto"></div>
+                    <div class="col-sm-4 bg-white rounded-end-4 px-4 py-4">
+                        <h2 class="text-success">Olá<br>Bem vindo</h2>
+                        <h3 class="text-center mt-4">Faça seu login</h3>
+                        <form>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Senha</label>
+                                <input type="password" class="form-control" id="exampleInputPassword1">
+                            </div>
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Busca de convidados</title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../js/bootstrap.min.js">
+    <script type="text/javascript" src="chart.umd.js"></script>
+    <style type="text/css">
+        .tela{
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body class="bg-gradient">
+    <section class="container">
+        <header class="row justify-content-center">
+            <div class="col-6 w-100 align-content-center mb-3 d-flex bg-light py-2">
+                <h6 class="mt-2 fs-5 fw-bold mx-3">Sistema</h6>
+                <h6 class="mt-2 fs-5 mx-3">Dashboard</h6>
+                <h6 class="mt-2 fs-5 mx-3">Convidados</h6>
+                <h6 class="mt-2 fs-5 mx-3">Usuários</h6>
+                <h6 class="btn text-white bg-danger ms-2 mt-1">Sair</h6>
+            </div>
+        </header>
+        <div class="row d-flex justify-content-between">
+            <div class=" col-4 rounded text-center align-content-center">
+                <div class=" py-3 bg-success rounded-4 mb-3 text-white">
+                    <h2 id="confirmados">27</h2>
+                    <p>Confirmados</p>
+                </div>
+                <div class="py-3 rounded-4 text-center bg-danger text-white">
+                    <h2 id="pendentes">59</h2>
+                    <p>Pendentes</p>
+                </div>
+            </div>
+            <div class="col-8">
+                <div style="max-height: 250px;" class="bg-light text-center p-3 border-dark rounded" id="grafico">
+                    <canvas id="meuGrafico"></canvas>
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="row tela justify-content-center pt-5">
+            <div class="col-12">
+                <div class="input-group mb-3 mt-2">
+                    <input type="text" class="form-control" placeholder="Buscar convidado" aria-label="Buscar convidado" aria-describedby="button-addon2">
+                    <button class="btn btn-outline-primary px-4 py-2" type="button" id="button-addon2">Buscar</button>
+                </div>
+                <div class="row">
+                    <table class="table table-striped">
+                        <thead class="table-dark table-group-divider">
+                            <tr>
+                                <th class="col" scope="col">#</th>
+                                <th class="col" scope="col">Nome</th>
+                                <th scope="col">Telefone</th>
+                                <th scope="col">Mesa</th>
+                                <th scope="col">Confirmar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Lorenzo</td>
+                                <td>51 98562-3584</td>
+                                <td>33</td>
+                                <td>
+                                    <select class="form-select" aria-label="Default select example" style="border: none; background:none;">
+                                        <option selected>Confirmar</option>
+                                        <option value="1">Presente</option>
+                                        <option value="2">Não presente</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>João</td>
+                                <td>51 99458-2365</td>
+                                <td>67</td>
+                                <td>
+                                    <select class="form-select" aria-label="Default select example" style="border: none; background:none;">
+                                        <option selected>Confirmar</option>
+                                        <option value="1">Presente</option>
+                                        <option value="2">Não presente</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Luis Feijão com Farinha</td>
+                                <td>51 93264-8599</td>
+                                <td>69</td>
+                                <td>
+                                    <select class="form-select" aria-label="Default select example" style="border: none; background:none;">
+                                        <option selected>Confirmar</option>
+                                        <option value="1">Presente</option>
+                                        <option value="2">Não presente</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                        </table>
+                </div>
+            </div>
+        </div>
+    </section>   
+<script type="text/javascript">
+const pendentes = document.getElementById("pendentes").textContent;
+const confirmados = document.getElementById("confirmados").textContent;
+const ctx = document.getElementById("meuGrafico").getContext("2d");
+
+const meuGrafico = new Chart( ctx, {
+    type: "pie",
+    data: {
+        labels: ['Confirmados', 'Pendentes'], 
+        datasets: [{
+            label: "Convidados",
+            data: [confirmados, pendentes],
+            backgroundColor: ['red', 'green'],
+            backgroundColor: [
+                'rgba(25, 135, 84, 0.7)',
+                'rgba(220, 53, 69, 0.7)'
+            ],
+            borderColor: [
+                'rgba(25, 135, 84, 1)',
+                'rgba(220, 53, 69, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        plugins: {
+            legend: {
+                position: 'right',
+                labels: {
+                    padding:20
+                }
+            }
+        },
+        responsive: true,
+        maintainAspectRatio: false
+    }
+});
+                    
+                    
+                    
+</script>
+</body>
+</html>

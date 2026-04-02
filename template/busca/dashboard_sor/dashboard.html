@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Introdução ao Bootstrap</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/custom.css">
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.0/chart.umd.js" integrity="sha512-D4pL3vNgjkHR/qq+nZywuS6Hg1gwR+UzrdBW6Yg8l26revKyQHMgPq9CLJ2+HHalepS+NuGw1ayCCsGXu9JCXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</head>
+<body>
+<header class="container">
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">SISTEMA</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Convidados</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Usuários</a>
+        </li>
+        <li class="nav-item">
+          <a class=" btn btn-danger" href="#">Sair</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</header>
+<section>
+	<div class="container mt-3">
+		<div class="row ">
+			<div class="col-sm-4">
+				<div class="bg-success text-white text-center p-3 mt-3 border-dark rounded">
+					<h2 id="confirmados">27</h2>
+					<p>Confirmados</p>
+				</div>
+				<div class="bg-danger text-white text-center p-3 mt-3 border-dark rounded">
+					<h2 id="pendentes">59</h2>
+					<p>Pendentes</p>
+				</div>
+			</div>
+			<div class="col-sm-8">
+				<div style="max-height: 250px;" class="grafico bg-light text-center p-3 mt-3 border-dark rounded">
+					<canvas id="meuGrafico"></canvas>
+				</div>				
+			</div>
+		</div>
+
+		<table class="table striped mt-5">
+		  <thead>
+		    <tr>
+		      <th scope="col">#</th>
+		      <th scope="col">Nome</th>
+		      <th scope="col">Telefone</th>
+		      <th scope="col">Mesa</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr>
+		      <th scope="row">1</th>
+		      <td>Mark</td>
+		      <td>51 98988956</td>
+		      <td>5</td>
+		    </tr>
+		    <tr>
+		      <th scope="row">2</th>
+		      <td>Jacob</td>
+		      <td>51 99885595</td>
+		      <td>7</td>
+		    </tr>
+		    <tr>
+		      <th scope="row">3</th>
+		      <td>John</td>
+		      <td>51 98666585</td>
+		      <td>9</td>
+		    </tr>
+		  </tbody>
+		</table>
+	</div>		
+</section>
+
+<script type="text/javascript">
+const confirmados = document.getElementById('confirmados').textContent;
+const pendentes = document.getElementById('pendentes').textContent;
+const ctx = document.getElementById('meuGrafico').getContext('2d');
+
+const meuGrafico = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: ['Confirmados', 'Pendentes'],
+        datasets: [{
+            label: 'Convidados',
+            data: [confirmados, pendentes], 
+            backgroundColor: [                
+                'rgba(25, 135, 84, 0.7)', // Verde (Success)
+                'rgba(220, 53, 69, 0.7)'  // Vermelho (Danger)             
+            ],
+            borderColor: [                
+                'rgba(25, 135, 84, 1)',
+                'rgba(220, 53, 69, 1)'                
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        plugins: {
+            legend: {
+                position: 'right', 
+                labels: {
+                    padding: 20 
+                }
+            }
+        },
+        responsive: true,
+        maintainAspectRatio: false 
+    }
+});
+
+</script>
+
+</body>
+</html>

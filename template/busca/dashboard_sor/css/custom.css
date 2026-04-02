@@ -1,0 +1,17 @@
+.bloco{
+	background: #333;
+	color: #fff;
+	border: solid 1px #999;
+	border-radius: 10px;
+	font-size: 32px;
+}
+.info{
+	background: #333;
+	height: 600px;
+}
+.caixa{
+	background: #ddd;
+	border-radius: 10px;
+	border: solid 1px #fff;
+	height: 120px;
+}

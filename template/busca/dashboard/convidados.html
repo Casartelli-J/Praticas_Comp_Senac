@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Busca de convidados</title>
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../js/bootstrap.min.js">
+    <script type="text/javascript" src="../../js/bootstrap.min.js"></script>
     <script type="text/javascript" src="chart.umd.js"></script>
     <script type="text/javascript" src="script.js"></script>
     <style type="text/css">
@@ -29,27 +29,29 @@
     <section class="container">
         <div class="row tela justify-content-center align-content-center">
             <div class="col-6 bg-light">
-                <form class="my-auto p-3">
+                <form action="" method="POST" class="my-auto p-3">
                     <div class="mb-3">
                         <label for="formGroupExampleInput" class="form-label">CPF</label>
                         <input class="form-control" placeholder="000.000.000-00" oninput="mascara(this)" type="text">
                     </div>
                     <div class="mb-3">
                         <label for="formGroupExampleInput2" class="form-label">Nome</label>
-                        <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Digite seu nome">
+                        <input type="text" name="nome" class="form-control" id="formGroupExampleInput2" placeholder="Digite seu nome">
                     </div>
                     <div class="mb-3">
                         <label for="formGroupExampleInput" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="formGroupExampleInput" placeholder="placeholder@gmail.com">
+                        <input type="email" name="email" class="form-control" id="formGroupExampleInput" placeholder="placeholder@gmail.com">
                     </div>
-                    <div class="">
+                    <div class="mb-3">
                         <label for="formGroupExampleInput2" class="form-label">Telefone</label>
-                        <input id="telefone" onkeyup="mascaraFone(event)" class="form-control" placeholder="(00) 90000-0000">
+                        <input id="telefone" type="text" name="telefone" onkeyup="mascaraFone(event)" class="form-control" placeholder="(00) 90000-0000">
                     </div>
+                    <div class="mb-3">
+                        <label for="formGroupExampleInput2" class="form-label">Mesa</label>
+                        <input class="form-control" type="text" name="mesa">
+                    </div>
+                    <button class="btn bg-success" type="submit">Salvar</button>
                 </form>
-                <div class="text-center mb-3 fs-4">
-                    Mesa: 15
-                </div>
             </div>
         </div>
     </section>

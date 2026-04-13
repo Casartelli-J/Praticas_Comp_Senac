@@ -51,3 +51,11 @@ function mascaraFone(event) {
       divResp.innerHTML = "Senha com mais de 8 digitos sem Letra maiúscula"
     }
   }
+
+
+const myModal = document.getElementById('myModal')
+const myInput = document.getElementById('myInput')
+
+myModal.addEventListener('shown.bs.modal', () => {
+  myInput.focus()
+})

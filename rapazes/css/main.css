@@ -1,0 +1,239 @@
+.destaque{
+	font-family: "Cascadia Code", sans-serif;
+	/* color: rgb(216, 200, 57); */
+	color: rgb(158, 102, 231);
+	font-size: 20px;
+	height: 100%;
+}
+
+.destaque h1{
+	text-align: center;
+}
+
+.destaque a{
+	background-color: rgb(184, 184, 46);
+	text-decoration: none;
+	border: 8px solid rgb(184, 184, 46);
+	border-radius: 20px;
+	padding: 2px;
+	margin-left: 2%;
+	margin-top: 0.5%;
+	float: left;
+
+}
+.destaque a:hover{
+	background-color: rgba(141, 141, 34);
+	border: 8px solid rgb(141, 141, 34);
+}
+
+.game_destaque{
+	/* border: 1px solid red; */
+	overflow: hidden;
+	margin: 1% 0;
+	background: linear-gradient(90deg, rgba(6, 10, 18, 0.5), rgba(12, 12, 28, 0.5), rgba(16, 10, 32, 0.5), rgba(22, 10, 36, 0.5), rgba(28, 8, 38, 0.5));
+	width: 100%;
+	border-radius: 50px;
+}
+
+.video{
+	/* border: 1px solid red; */
+	overflow: hidden;
+	float: left;
+	width: 40%;
+}
+
+.video_demo{
+	width: 100%;
+	height: 500px;
+	scale: 90%;
+	float: left;
+}
+
+.CP{
+	/* border: 1px solid red; */
+	overflow: hidden;
+	float: left;
+	width: 35%;
+	margin-top: 2%;
+	margin-left: 3%;
+
+}
+.CP img{
+	/* border: 1px solid red; */
+	width: 100%;
+}
+
+.RD{
+	overflow: hidden;
+	float: left;
+	width: 35%;
+	margin-top: 3%;
+	margin-left: 3%;
+}
+.RD img{
+	width: 100%;
+}
+
+.descricao{
+	/* border: 1px solid red; */
+	font-size: 100%;
+	font-weight: bolder;
+	width: 50%;
+	height: 100%;
+	margin-top: 3%;
+	margin-left: 1%;
+	color: steelblue;
+	float: left;
+}
+
+.titulo{
+	/* border: 1px solid red; */
+	font-size: 100%;
+	font-weight: bold;
+	margin-left: 1%;
+	float: left;
+	
+}
+
+.categorias{
+	/* border: 1px solid red; */
+	overflow: hidden;
+	margin-bottom: 5% 0;
+	background: linear-gradient(90deg, rgba(6, 10, 18, 0.5), rgba(12, 12, 28, 0.5), rgba(16, 10, 32, 0.5), rgba(22, 10, 36, 0.5), rgba(28, 8, 38, 0.5));
+	width: 100%;
+	border-radius: 50px;
+	scale: 90%;
+	text-align: center;
+}
+
+
+.imagem_menezes{
+	/* border: 1px solid red; */
+	width: 20%;
+	margin: 0 2%;
+	overflow: hidden;
+	display: inline-block;
+	background-image: url(../img/main/menezes.jpg);
+	scale:90%;
+	background-size: cover;
+	border-radius: 50px;
+}
+
+.imagem_menezes p{
+	/* border: 1px solid red; */
+	color: yellow;
+	background-color: black;
+	border-radius: 10px;
+	font-family: Cascadia code, sans-serif;
+	text-decoration: none;
+	font-weight: bold;
+	float: left;
+	margin-left: 5%;
+	margin-top: 100%;
+	font-size: 30px;
+	text-align: center;
+}
+
+.imagem_lara{
+	/* border: 1px solid red; */
+	width: 20%;
+	margin: 0 2%;
+	overflow: hidden;
+	display: inline-block;
+	background-image: url(../img/main/lara.jpg);
+	scale:90%;
+	background-size: cover;
+	border-radius: 50px;
+}
+
+.imagem_lara p{
+	/* border: 1px solid red; */
+	color: yellow;
+	background-color: rgba(0, 0, 0, 0.5);
+	border-radius: 10px;
+	font-family: Cascadia code, sans-serif;
+	text-decoration: none;
+	font-weight: bold;
+	float: left;
+	margin-left: 5%;
+	margin-top: 100%;
+	font-size: 30px;
+	text-align: center;
+}
+
+.imagem_god{
+	/* border: 1px solid red; */
+	width: 20%;
+	margin: 0 2%;
+	overflow: hidden;
+	display: inline-block;
+	background-image: url(../img/main/god.jpg);
+	scale:90%;
+	background-size: cover;
+	border-radius: 50px;
+}
+
+.imagem_god p{
+	/* border: 1px solid red; */
+	color: yellow;
+	background-color: rgba(0, 0, 0, 0.384);
+	border-radius: 10px;
+	font-family: Cascadia code, sans-serif;
+	text-decoration: none;
+	font-weight: bold;
+	float: left;
+	margin-left: 5%;
+	margin-top: 100%;
+	font-size: 30px;
+	text-align: center;
+}
+
+.imagem_farm{
+	/* border: 1px solid red; */
+	width: 20%;
+	margin: 0 2%;
+	overflow: hidden;
+	display: inline-block;
+	background-image: url(../img/main/farm.png);
+	scale:90%;
+	background-size: cover;
+	border-radius: 50px;
+}
+
+.imagem_farm p{
+	/* border: 1px solid red; */
+	color: yellow;
+	background-color: rgba(0, 0, 0, 0.384);
+	border-radius: 10px;
+	font-family: Cascadia code, sans-serif;
+	text-decoration: none;
+	font-weight: bold;
+	float: left;
+	margin-left: 5%;
+	margin-top: 100%;
+	font-size: 30px;
+	text-align: center;
+}
+
+.zap{
+	position: fixed;
+	border: 1px solid green;
+	left: 95%;
+	top: 90%;
+	padding: 10px;
+	border-radius: 50px 50px 50px 0;
+	background-color: green;
+	font-family: Cascadia Code, sans-serif;
+	z-index: 2;
+	width: 3%;
+}
+
+.zap a{
+	text-decoration: none;
+	color: rgb(255, 255, 255);
+	float: right;
+}
+
+.zap a img{
+	width: 100%;
+}

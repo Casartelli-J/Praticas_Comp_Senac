@@ -51,8 +51,8 @@ export const updateUser = async (req, res) => {
     }
 }
 
-//Delete
 //Constante / função = Método
+//Delete
 export const deleteUser = async (req, res) => {
     const { id } = req.params;
     const sql = "DELETE FROM usuario WHERE ID_usuario = ?";

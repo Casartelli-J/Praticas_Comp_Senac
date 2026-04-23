@@ -5,5 +5,5 @@ export const usuarioRouter = Router()
 
 usuarioRouter.get("/", usuarios.listUsuarios);
 usuarioRouter.post("/", usuarios.insertUser);
-usuarioRouter.post("/:id", usuarios.updateUser);
+usuarioRouter.put("/:id", usuarios.updateUser);
 usuarioRouter.delete("/:id", usuarios.deleteUser)

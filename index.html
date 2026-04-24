@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../Praticas_Comp_Senac/template/css/bootstrap.min.css">
+    <script src="../Praticas_Comp_Senac/template/js/bootstrap.min.js"></script>
     <title>Busca de convidados</title>
     <style type="text/css">
         body{
@@ -15,75 +16,102 @@
     </style>
 </head>
 <body>
-    <div class="modal" id="myModal" tabindex="-1">
+    <div class="modal fade" id="updateUser" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Atualizar perfil</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="post" id="edit-user" style="margin: 40px 0; display: none;">
-
+                    <form class="row justify-content-center align-content-center" method="post" id="edit-user" style="margin: 40px 0;">
+                        
                         <input type="hidden" id="edit-id" required readonly>
 
-                        <input type="text" id="edit-nome" placeholder="Escreva seu nome" required>
+                        <div class="col-auto">
+                            <label for="nome">Nome:</label>
+                            <input class="form-control" type="text" id="edit-nome" placeholder="Escreva seu nome" required>
+                        </div>
 
-                        <input type="email" id="edit-email" placeholder="Escreva seu email" required>
-
-                        <input type="password" id="edit-senha" placeholder="Escreva sua senha" required>
-
-                        <button>Atualizar</button>
+                        <div class="col-auto">
+                            <label for="mail">Email:</label>
+                            <input class="form-control" type="email" id="edit-email" placeholder="Escreva seu email" required>
+                        </div>
+                        <div class="col-auto">
+                            <label for="password">Senha:</label>
+                            <input class="form-control" type="password" id="edit-senha" placeholder="Escreva sua senha" required>
+                            <div class="text-end mt-4">
+                                <button class="btn btn-success" data-bs-dismiss="modal" >Atualizar</button>
+                            </div>
+                        </div>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
     </div>
-    <header class="container">
-        <div class="col-12 bg-black">        
+
+    <div class="modal fade" id="insertUser" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Crie uma conta!</h5>
+                </div>
+                <div class="modal-body">
+                    <form class="row justify-content-center align-content-center" method="post" id="insert-user" style="margin:30px 0;">
+                        
+                        <div class="col-12 my-2">
+                            <label for="nome">Nome:</label>
+                            <input class="form-control" type="text" id="nome" placeholder="Escreva seu nome" required>
+                        </div>
+
+                        <div class="col-12 my-2">
+                            <label for="nome">Email:</label>
+                            <input class="form-control" type="email" id="email" placeholder="Escreva seu email" required>
+                        </div>
+
+                        <div class="col-12 mt-2">
+                            <label for="nome">Senha:</label>
+                            <input class="form-control" type="password" id="senha" placeholder="Escreva sua senha" required>
+                            <div class="text-end mt-4">
+                                <button class="btn btn-success">Cadastrar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <header class="container d-flex flex-wrap justify-content-between py-3 bg-black rounded">
+        <div class="col-1 text-center align-content-center">
+            <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#insertUser">Inserir</button>
+        </div>
+        <div class="col-11">
             <form class="row p-3" method="get" id="form-busca">
                 <div class="col-11">
                     <input class="form-control" type="search" id="busca" placeholder="Busca por nome">
                 </div>
-                <div class="col-auto">
+                <div class="col-1">
                     <button class="btn btn-success">Buscar</button>
                 </div>
             </form>
         </div>
     </header>
 
-    <section class="container d-flex flex-wrap">
-        <div class="col-4 bg-black mt-4 me-auto">
-            <h1 class="text-white pt-4 text-center">
-                Crie uma conta!
-            </h1>
-            <form class="row justify-content-center p-3" method="post" id="insert-user" style="margin: 40px 0;">
-                <div class="col-auto">
-                    <label class="text-white" for="nome">Nome:</label>
-                    <input class="form-control" type="text" id="nome" placeholder="Escreva seu nome" required>
-                    <!-- <div class="form-text text-white">
-                        Bota o nome direito em!
-                    </div> -->
-                </div>
-                <div class="col-auto">
-                    <label class="text-white" for="nome">Email:</label>
-                    <input class="form-control" type="email" id="email" placeholder="Escreva seu email" required>
-                </div>
-                <div class="col-auto">
-                    <label class="text-white" for="nome">Senha:</label>
-                    <input class="form-control" type="password" id="senha" placeholder="Escreva sua senha" required>
-                </div>
-                <div class="col-12 mt-4 pb-3 text-center">
-                    <button class="btn btn-success">Cadastrar</button>
-                </div>
-            </form>
-        </div>
-        <div class="col-5 bg-white mt-4 ms-auto">
-            <div id="conteudo"></div>
+    <section class="container">
+        <div class="col-12 bg-white mt-4">
+            <div id="conteudo">
+                <table class="table table-striped">
+                    <thead class="table-dark table-group-divider">
+                        <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ficha">
+                    </tbody>
+
+                </table>
+            </div>
         </div>
     </section>
 
@@ -138,13 +166,23 @@
             //const declara e define que ela é imutável, não modificavel, vai ficar assim.
             const resposta = await fetch(url);
             const usuarios = await resposta.json();
-            const conteudo = document.querySelector('#conteudo');
+            const conteudo = document.querySelector('#ficha');
             //let é pra declarar a variável.
             let dado = "";
             usuarios.forEach(usuario => {
-                dado += `<p><button id="myInput" onclick="selectUser(${usuario.ID_usuario})">Editar</button> 
-                <button onclick="deleteUser(${usuario.ID_usuario})">Excluir</button> - 
-                Dados do usuário ${usuario.nome} - ${usuario.email} - ${usuario.senha}</p>`
+                dado += `
+                <tr>
+                    <td>
+                        ${usuario.nome}
+                    </td>
+                    <td>
+                        ${usuario.email}
+                    </td>
+                    <td>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateUser" onclick="selectUser(${usuario.ID_usuario})">Editar</button> 
+                        <button class="btn btn-danger" onclick="deleteUser(${usuario.ID_usuario})">Excluir</button> 
+                    </td>
+                </tr>`
             });
             conteudo.innerHTML = dado;
         }
@@ -195,37 +233,27 @@
             const email = document.querySelector('#edit-email').value;
             const senha = document.querySelector('#edit-senha').value;
             const editForm = document.querySelector('#edit-user').value;
-            
-            
-            if(confirm("Tem certeza meo?")){
-                const atualizar = await fetch(`http://localhost:3000/usuarios/${id}`, {
-                    method: 'PUT',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({
-                        nome: nome,
-                        email: email,
-                        senha: senha
-                    })
+
+            const atualizar = await fetch(`http://localhost:3000/usuarios/${id}`, {
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    nome: nome,
+                    email: email,
+                    senha: senha
+                })
             });
             const resultado = await atualizar.json();
             selectUsers();
+
         }
-        }
+        
         const editForm = document.querySelector("#edit-user");
         editForm.addEventListener('submit', (e) => {
             e.preventDefault();
             updateUser();
             editForm.reset()
-            editForm.style.display = 'none'
-        })
-
-
-          /*MODAL*/
-        const myModal = document.getElementById('myModal')
-        const myInput = document.getElementById('myInput')
-
-        myModal.addEventListener('shown.bs.modal', () => {
-        myInput.focus()
+            // editForm.style.display = 'none'
         })
 
 

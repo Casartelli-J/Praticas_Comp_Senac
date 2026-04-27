@@ -1,0 +1,180 @@
+body{
+    font-family: Cascadia Code, sans-serif;
+}
+
+
+.destaque h1{
+	
+	color: rgb(70, 81, 180);
+	font-size: 20px;
+	
+}
+.l1{
+	color: rgb(70, 81, 180);
+    text-align: center;
+	
+}
+.zap{
+	position: fixed;
+	border: 1px solid green;
+	left: 95%;
+	top: 90%;
+	padding: 10px;
+	border-radius: 50px 50px 50px 0;
+	background-color: green;
+	font-family: Cascadia Code, sans-serif;
+	z-index: 2;
+	width: 3%;
+}
+
+.zap a{
+	text-decoration: none;
+	color: rgb(255, 255, 255);
+	float: right;
+}
+
+.zap a img{
+	width: 100%;
+}
+.gamer{
+	color: steelblue;
+	font-size: 13px;
+	
+}
+.imgtux{
+	margin-left: 40%;
+    margin-right: 50%;
+    
+}
+.intro{
+    background: 1px solid red;
+}
+.top1{
+    color: rgb(70, 81, 180);
+    
+}
+.protono{
+    transform: translate(-0%, -0%);
+    margin-right: 100px;
+    font-size: 20px;
+    width: 100%;
+    color: grey
+
+  }
+.red{
+    color: red;
+    margin-left: 30px;
+}
+.vinhoh2{
+    transform: translate(-0%, -0%);
+    
+    margin-right: 100px;
+    
+    font-size: 20px;
+    width: 100%;
+    color: grey
+}
+.grey{
+    color: grey;
+}
+.orange{
+    color: orangered;
+}
+.litros{
+    transform: translate(-0%, -0%);
+    margin-right: 50px;
+    font-size: 20px;
+    width: 100%;
+    color: grey
+}
+.google{
+    color: blueviolet;
+}
+.gog{
+    transform: translate(-0%, -0%);
+    margin-right: 50px;
+    font-size: 20px;
+    width: 100%;
+    color: grey
+}
+    
+.taça{
+    border: 3px solid red;
+    margin-left: 15px;
+    margin-right: 430px;
+    width: 300px; 
+    height: 300px;
+
+}
+.lutris{
+    display: flex;
+    align-items: center;
+    gap: 20px; 
+    padding: 20px;; 
+    transform: translate(-0%, -0%);
+    background: rgba(0, 0, 0, 0.6);
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    font-size: 20px;
+    width: 100%;
+    color: grey;
+}
+.vinho{
+    display: flex;
+    align-items: center;
+    gap: 20px; 
+    padding: 20px;; 
+    transform: translate(-0%, -0%);
+    background: rgba(0, 0, 0, 0.6);
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    font-size: 20px;
+    width: 100%;
+    color: grey;
+}
+.platonico{
+    display: flex;
+    align-items: center;
+    gap: 20px; 
+    padding: 20px;; 
+    transform: translate(-0%, -0%);
+    background: rgba(0, 0, 0, 0.6);
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    font-size: 20px;
+    width: 100%;
+    color: grey;
+}
+.deck{
+    border: 3px solid grey;
+    margin-left: 15px;
+    margin-right: 430px;
+    width: 400px; 
+    height: 300px;
+}
+.marmota{
+    border: 3px solid rgb(36, 12, 14);
+    margin-left: 15px;
+    margin-right: 430px;
+    width: 350px; 
+    height: 300px;
+}
+.gogs{
+    display: flex;
+    align-items: center;
+    gap: 20px; 
+    padding: 20px;; 
+    transform: translate(-0%, -0%);
+    background: rgba(0, 0, 0, 0.6);
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    font-size: 20px;
+    width: 100%;
+    color: grey;
+}
+.gugu{
+    margin-left: 15px;
+    margin-right: 430px;
+    width: 300px; 
+    height: 300px;
+}

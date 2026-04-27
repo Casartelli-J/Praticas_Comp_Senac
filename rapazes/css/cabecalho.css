@@ -1,0 +1,84 @@
+body{
+    background: linear-gradient(182deg, #001D27 3.44%, #49467C 98.5%) fixed;
+    height: 100%; 
+    padding: 0;
+    margin: 0;
+}
+
+
+header{
+    /* border: 1px solid red; */
+    background: linear-gradient(90deg, #0D1B2A, #1A1B3A, #261A45, #321952, #3D0E4F);
+    height: 10%;
+    overflow: hidden;
+}
+
+/* Logo specs */
+.logo{
+    /* border: 1px solid red; */
+    width: 20%;
+    float: left;
+    padding: 1% 1%;
+}
+
+/*###
+Sessão de login, conta e imagem do usuário
+###*/
+
+.login_criar_conta{
+    /* border: 1px solid red; */
+    overflow: hidden;
+    float: right;
+    width: 41%;
+    margin-top: 2%;
+}
+
+.criar_conta{
+    /* border: 1px solid red; */
+    width: 35%;
+    float: right;
+    margin-top: 4.2%;
+    margin-right: 2%;
+}
+
+.user{
+    /* border: 1px solid red; */
+    float: right;
+    width: 20%;
+}
+
+.login{
+    /* border: 1px solid red; */
+    float: right;
+    width: 31%;
+    margin-top: 4%;
+    margin-right: 3%;
+}
+
+
+
+/*###
+PARTE ESQUERDA DO CABEÇALHO
+###*/
+
+.sobre_comunidade{
+    /* border: 1px solid red; */
+    overflow: hidden;
+    float: left;
+    width: 36%;
+    box-sizing: border-box;
+    margin-top: 3%;
+}
+
+.comunidade{
+    /*border: 1px solid red;*/
+    width: 35%;
+    float: left;
+    margin: 0 10%;
+}
+
+.sobre{
+    /*border: 1px solid red;*/
+    width: 25%;
+    float: left;
+}

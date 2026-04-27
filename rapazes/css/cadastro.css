@@ -1,0 +1,106 @@
+.logo{
+	width: 15%;
+}
+
+.cadastro{
+	border: 1px solid gray;
+	width: 40%;
+	font-family: Bahnschrift, sans-serif;
+	color: #fff;
+	padding-bottom: 100px;
+	position: absolute;
+  	top: 30%;
+  	left: 50%;
+  	transform: translateX(-50%);
+  	background: rgba(0, 0, 0, 0.6); 
+  	padding: 40px;                  
+  	border-radius: 12px;
+  	margin-top: 40px;
+}
+.zap{
+	position: fixed;
+	border: 1px solid green;
+	left: 95%;
+	top: 90%;
+	padding: 10px;
+	border-radius: 50px 50px 50px 0;
+	background-color: green;
+	font-family: Cascadia Code, sans-serif;
+	z-index: 2;
+	width: 3%;
+}
+
+.zap a{
+	text-decoration: none;
+	color: rgb(255, 255, 255);
+	float: right;
+}
+
+.zap a img{
+	width: 100%;
+}
+.posicao{
+	text-align: center;
+}
+
+.cadastro input,
+.cadastro button{
+	display: inline-block;
+	margin: 10px 0;
+	padding: 12px;
+	box-sizing: border-box;
+}
+
+body{
+	background: linear-gradient(182deg, #001D27 3.44%, #49467C 98.5%) fixed;
+    height: 100vh; 
+    padding: 0px;
+    margin: 0px;
+}
+
+.cadastro input::placeholder{
+	color: steelblue;
+}
+
+.cadastro input{
+	background-color: #1b1727;
+	color: #fff;
+	border: none;
+	border-radius: 10px;
+	width: 70%;
+	padding: 15px;
+	font-size: 16px;
+}
+
+.cadastro button{
+	display: block;
+  	width: 40%; 
+  	background-color: steelblue; 
+  	color: #fff; 
+  	border: none;
+  	border-radius: 10px;
+  	cursor: pointer;
+  	margin: 10px auto;
+  	transition: background 0.3s;
+}
+
+.cadastro button:hover {
+  	background-color: #1b5dbf;
+}
+
+.color-botao{
+	background: steelblue;
+	margin-left: 34%;
+	margin-right: 34%;
+	padding: 5px;
+	border-radius: 20px;
+	font-weight: bold;
+	color: white;
+	cursor: pointer;
+	display: block;
+
+}
+
+.botao-cadastro{
+	text-decoration: none;
+}

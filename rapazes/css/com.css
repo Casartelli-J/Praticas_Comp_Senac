@@ -1,0 +1,75 @@
+.destaque{
+	font-family: Cascadia Code, sans-serif;
+	/* color: rgb(216, 200, 57); */
+	color: rgb(158, 102, 231);
+	font-size: 20px;
+	height: 100%;
+}
+
+.destaque h1{
+	text-align: center;
+}
+
+.destaque a{
+	background-color: rgb(184, 184, 46);
+	text-decoration: none;
+	border: 8px solid rgb(184, 184, 46);
+	border-radius: 20px;
+	padding: 2px;
+}
+.destaque a:hover{
+	background-color: rgba(141, 141, 34);
+	border: 8px solid rgb(141, 141, 34);
+}
+
+.comentarios_destaque{
+	/* border: 1px solid red; */
+	overflow: hidden;
+	margin: 1% 0;
+	background: linear-gradient(90deg, rgba(6, 10, 18, 0.5), rgba(12, 12, 28, 0.5), rgba(16, 10, 32, 0.5), rgba(22, 10, 36, 0.5), rgba(28, 8, 38, 0.5));
+	width: 100%;
+	border-radius: 50px;
+}
+
+.descricao{
+	/* border: 1px solid red; */
+	font-size: 100%;
+	font-weight: bolder;
+	width: 50%;
+	height: 100%;
+    margin: 2%;
+	color: steelblue;
+	float: left;
+}
+
+.titulo{
+	/* border: 1px solid red; */
+	font-size: 100%;
+	font-weight: bold;
+    margin: 2.5%;
+	float: left;
+	
+}
+
+.zap{
+	position: fixed;
+	border: 1px solid green;
+	left: 95%;
+	top: 90%;
+	padding: 10px;
+	border-radius: 50px 50px 50px 0;
+	background-color: green;
+	font-family: Cascadia Code, sans-serif;
+	z-index: 2;
+	width: 3%;
+}
+
+.zap a{
+	text-decoration: none;
+	color: rgb(255, 255, 255);
+	float: right;
+}
+
+.zap a img{
+	width: 100%;
+}

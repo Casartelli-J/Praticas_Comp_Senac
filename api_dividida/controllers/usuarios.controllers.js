@@ -1,9 +1,3 @@
-// const users = [
-//     {"nome": "Lorenzo", "senha": "adm123", "tipo" : "admin"},
-//     {"nome": "João", "senha": "teste senha", "tipo" : "usuario"},
-//     {"nome": "Isabele", "senha": "bel2026", "tipo" : "usuario"},
-//     {"nome": "Luis", "senha": "Feijão com Farinha", "tipo" : "usuario"}
-// ];
 
 import db from "../config/database.js"
 
@@ -64,3 +58,4 @@ export const deleteUser = async (req, res) => {
         res.status(201).json("Usuário removido com sucesso");
     }
 }
+// SIX SEVEN

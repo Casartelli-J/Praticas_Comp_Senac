@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+    <title>Index</title>
+    <style>
+        body{
+            background-color: gray;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="modal fade" id="inserir" tabindex="-1" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Inserir usuário</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row d-flex flex-wrap justify-content-center">
+                            <div class="col-8 py-3 ">
+                                <form id="form-insert">
+                                    <div class="mb-3">
+                                        <label class="form-label">CPF:</label>
+                                        <input class="form-control" id="cpf" type="number" placeholder="Insira seu cpf!" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Nome:</label>
+                                        <input class="form-control" id="nome" type="text" placeholder="Insira seu nome!" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Email:</label>
+                                        <input class="form-control" id="email" type="mail" placeholder="Insira seu email!" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Telefone:</label>
+                                        <input class="form-control" id="telefone" type="number" placeholder="Insira seu telefone!" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Data de cadastro:</label>
+                                        <input class="form-control" id="data" type="date" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <button class="btn btn-primary">
+                                            Cadastrar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <header class="container mb-5 bg-black">
+            
+        <div class="row d-flex flex-wrap justify-content-between ">
+            
+                <div class="col-2 text-center align-content-center">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#inserir">Inserir convidado</button>
+                </div>
+                <form class="col-10 d-flex flex-wrap justify-content-center " id="form-busca">
+                    <div class="col-10 me-3 py-2">
+                        <input class="form-control my-2 py-2" type="text" id="busca" placeholder="Buscar convidado">
+                    </div>
+                    <div class="align-content-center">
+                        <button class="btn btn-primary py-2 px-3">Buscar</button>
+                    </div>
+                </form>
+            
+        </div>
+    </header>
+
+    <section class="container text-center">
+
+        <div class="row">
+            <div class="col-12">
+                <table class="table">
+
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Cpf</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Telefone</th>
+                            <th scope="col">Data de cadastro</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ficha">
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+
+    </section>
+
+
+
+
+    <script>
+        const formBusca = document.querySelector('#form-busca');
+        formBusca.addEventListener('submit', (e) =>{
+            e.preventDefault();
+            listUser();
+        });
+
+        async function listUser() {
+            const url = 'https://localhost:3000/convidados/';
+        };   
+
+
+        async function insertUser() {
+            const cpf = document.querySelector('#cpf');
+            const nome = document.querySelector('#nome');
+            const email = document.querySelector('#email');
+            const telefone = document.querySelector('#telefone');
+            const data = document.querySelector('#data');
+
+            const url = await fetch('https://localhost:3000/convidados/', {
+                "method" : 'POST',
+                "headers" : {'Content-type' : 'application/json'},
+                "body": {
+                    "cpf" : cpf,
+                    "nome" : nome,
+                    "email" : email,
+                    "telefone" : cpf,
+                    "data" : data
+                }
+            });
+            
+            
+        }
+    </script>
+</body>
+</html>

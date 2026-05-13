@@ -1,6 +1,7 @@
+//Deixa o dotenv sempre no começo, senão quebra
+import "dotenv/config";
 import express from "express";
 import cors from "cors";
-import "dotenv/config";
 import { convidadoRouter } from "./routes/convidados.routes.js";
 import { usuarioRouter } from "./routes/usuarios.routes.js";
 import db from "./config/database.js";

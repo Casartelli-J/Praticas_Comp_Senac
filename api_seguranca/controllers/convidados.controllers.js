@@ -23,7 +23,7 @@ export const selectUser = async (req, res) => {
 
 export const insertUser = async (req, res) =>{
     const {nome, sobrenome, cpf, telefone, email, mesa} = req.body;
-    const sql = "INSERT INTO convidados(nome, sobrenome, cpf, telefone, email, mesa) VALUES (?, ?, ?, ?, ?, ?)";
+    const sql = "INSERT INTO convidados(nome, sobrenome, cpf, telefone, email, mesa, presente) VALUES (?, ?, ?, ?, ?, ?, 0)";
     if(nome && sobrenome && cpf && telefone && email && mesa){
         const [result] = await db.query(sql, [nome, sobrenome, cpf, telefone, email, mesa]);
         res.status(201).json("Convidado inserido com sucesso");
@@ -61,4 +61,26 @@ export const deleteUser = async (req, res) =>{
     }else{
         res.status(200).json("Convidado deletado com sucesso");
     }
+}
+
+export const checkUser = async(req, res) =>{
+    const {id} = req.params;
+    const sql = "SELECT presente from convidados WHERE id = ?";
+    const [presente] = await db.query(sql, [id]);
+
+    let sql2 = "";
+    if(presente[0]["presente"] === 0){
+        sql2 += "UPDATE convidados SET presente = 1 WHERE id = ?";
+    }else{
+        sql2 += "UPDATE convidados SET presente = 0 WHERE id = ?";
+    }
+
+    const [result] = await db.query(sql2, [id]);
+    if(result.affectedRows === 0){
+        res.status(404).json("Convidado não encontrado");
+    }else{
+        res.status(200).json("Usuário modificado");
+    }
+
+    
 }

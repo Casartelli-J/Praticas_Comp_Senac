@@ -7,10 +7,13 @@ export const login = async (req, res) => {
     const {email, senha} = req.body;
     const users = "SELECT * from usuarios WHERE email = ?";
     
-    const [busca] = await db.query(users, [email]);
-    const user = busca[0]
+    if(email && senha){
+        const [busca] = await db.query(users, [email]);
+        const user = busca[0]
+        
+        const comparaSenha = await bcrypt.compare(senha, user["senha"])
+        console.log(comparaSenha)
+    }
     
-    const comparaSenha = await bcrypt.compare(senha, user["senha"])
-    console.log(comparaSenha)
 
 }

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+
+    <form style="text-align: center; padding: 300px 0 0 0;">
+        <div>
+            <label for="email">Email</label>
+            <input type="mail" id="email" placeholder="Insira o email">
+        </div>
+        <div>
+            <label for="senha">Senha</label>
+            <input type="text" id="senha" placeholder="Insira a sua senha">
+        </div>
+        <button type="button" onclick="enviar()">Botis</button>
+    </form>
+
+    <script>
+        async function enviar(){   
+            const email = document.querySelector("#email").value;
+            const senha = document.querySelector("#senha").value;
+            // A URL no FETCH é só pra indicar onde vai ser feita a requisição
+            const responde = await fetch("http://localhost:3000/usuarios/login", {
+                method : "POST",
+                headers : {
+                    "Content-Type" : "application/json",
+                },
+                body : JSON.stringify({email, senha})
+            })
+    
+            const resposta = await responde.json();
+            console.log(resposta);
+        }
+
+    </script>
+</body>
+</html>

@@ -1,6 +1,8 @@
 import { Router } from "express";
 import * as usuarios from "../controllers/usuarios.controllers.js";
 import * as auth from "../controllers/authController.js";
+import { verificaToken } from "../middleware/auth.js";
+
 export const usuarioRouter = Router();
 
 usuarioRouter.get("/", usuarios.selectUser)

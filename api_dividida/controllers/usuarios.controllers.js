@@ -58,3 +58,4 @@ export const deleteUser = async (req, res) => {
         res.status(201).json("Usuário removido com sucesso");
     }
 }
+// SIX SEVEN

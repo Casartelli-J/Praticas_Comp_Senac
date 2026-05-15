@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../Praticas_Comp_Senac/template/css/bootstrap.min.css">
+    <script src="../Praticas_Comp_Senac/template/js/bootstrap.min.js"></script>
+    <title>Index</title>
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+
+
+
+    <script>
+
+        /*Busca e filtragem de dados*/
+        const formBusca = document.
+
+
+        //Inserção de dados
+
+        const formEnviar = document.querySelector("#placehold");
+        formEnviar.addEventListener('submit', (e) =>{
+            e.preventDefault();
+            insertUser();
+            formEnviar.reset();
+        })
+
+        async function insertUser() {
+            const nome = document.querySelector('#placehold').value;
+            const email = document.querySelector('#placehold').value;
+            const telefone = document.querySelector('#placehold').value;
+
+            const enviar = await fetch(`servidorLocal`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    nome: nome,
+                    email: email,
+                    telefone: telefone
+                })
+            });
+
+            const dados = await enviar.json();
+            selectUsers();
+        }
+
+    </script>
+</body>
+</html>

@@ -114,10 +114,48 @@
             </div>
         </div>
     </section>
-
-   
-
+    
+    
+    
     <script>
+        
+        /*Busca e filtragem de dados*/
+        const formBusca = document.querySelector('#form-busca');        
+        formBusca.addEventListener('submit', async (e) =>{
+            e.preventDefault();
+            selectUsers();
+        })        
+        async function selectUsers(){
+            const busca  = document.querySelector('#busca').value;
+            let url = 'http://localhost:3000/usuarios';
+            if(busca != ""){
+                url = `http://localhost:3000/usuarios?nome=${busca}`;
+            }
+    
+            //const declara e define que ela é imutável, não modificavel, vai ficar assim.
+            const resposta = await fetch(url);
+            const usuarios = await resposta.json();
+            const conteudo = document.querySelector('#ficha');
+            //let é pra declarar a variável.
+            let dado = "";
+            usuarios.forEach(usuario => {
+                dado += `
+                <tr>
+                    <td>
+                        ${usuario.nome}
+                    </td>
+                    <td>
+                        ${usuario.email}
+                    </td>
+                    <td>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateUser" onclick="selectUser(${usuario.ID_usuario})">Editar</button> 
+                        <button class="btn btn-danger" onclick="deleteUser(${usuario.ID_usuario})">Excluir</button> 
+                    </td>
+                </tr>`
+            });
+            conteudo.innerHTML = dado;
+        }
+        selectUsers()
 
       
         /*Inserção de dados*/
@@ -147,46 +185,9 @@
             const dados = await enviar.json();
             selectUsers();
         }
+        
 
 
-
-        /*Busca e filtragem de dados*/
-        const formBusca = document.querySelector('#form-busca');        
-        formBusca.addEventListener('submit', async (e) =>{
-            e.preventDefault();
-            selectUsers();
-        })        
-        async function selectUsers(){
-            const busca  = document.querySelector('#busca').value;
-            let url = 'http://localhost:3000/usuarios';
-            if(busca != ""){
-                url = `http://localhost:3000/usuarios?nome=${busca}`;
-            }
-
-            //const declara e define que ela é imutável, não modificavel, vai ficar assim.
-            const resposta = await fetch(url);
-            const usuarios = await resposta.json();
-            const conteudo = document.querySelector('#ficha');
-            //let é pra declarar a variável.
-            let dado = "";
-            usuarios.forEach(usuario => {
-                dado += `
-                <tr>
-                    <td>
-                        ${usuario.nome}
-                    </td>
-                    <td>
-                        ${usuario.email}
-                    </td>
-                    <td>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateUser" onclick="selectUser(${usuario.ID_usuario})">Editar</button> 
-                        <button class="btn btn-danger" onclick="deleteUser(${usuario.ID_usuario})">Excluir</button> 
-                    </td>
-                </tr>`
-            });
-            conteudo.innerHTML = dado;
-        }
-        selectUsers()
 
 
         /*Deletagem dos dados baby*/

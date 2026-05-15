@@ -1,3 +1,9 @@
 node_modules
+<<<<<<< HEAD
 package-lock.json
 package.json
+=======
+package.json
+package-lock.json
+*.env
+>>>>>>> d554836edfcd5cdc8327f424a83859f810697516

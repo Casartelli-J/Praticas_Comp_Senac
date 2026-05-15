@@ -33,7 +33,12 @@
             })
     
             const resposta = await responde.json();
-            console.log(resposta);
+            if(resposta.auth){
+                localStorage.setItem("token", resposta.token);
+                window.location.href = "painel.html";
+            }else{
+                console.log("N foi");
+            }
         }
 
     </script>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+
+    <h1>Lista de Convidados</h1>
+    <form action="">
+        <input id="input" type="text" placeholder="Busca convidado">
+        <button type="button" onclick="getConvidados()">BUtão</button>
+    </form>
+    <br>
+    
+    <form action="" id="form">
+        <input id="nome" type="text" placeholder="Nome" required><br>
+        <input id="sobre" type="text" placeholder="Sobrenome" required><br>
+        <input id="cpf" type="number" placeholder="Cpf" required><br>
+        <input id="telefone" type="number" placeholder="Telefone" required><br>
+        <input id="email" type="mail" placeholder="Email" required><br>
+        <input id="mesa" type="text" placeholder="Mesa" required><br>
+        <button type="button" onclick="insertConvidado()">Enviar</button>
+    </form>
+    <table style="border: 1px solid red;" border="1">
+        <thead>
+            <tr>
+                <td>
+                    Id
+                </td>
+                <td>
+                    Nome
+                </td>
+                <td>
+                    Presente
+                </td>
+            </tr>    
+        </thead>
+        <tbody id="lista">
+        </tbody>
+    </table>
+    <script>
+        const token = localStorage.getItem("token");
+        if(!token){
+            alert("Tem nada")
+            window.location.href = "index.html"
+        }
+
+        async function getConvidados(){
+            const input = document.getElementById("input").value;
+            
+            let URL = "http://localhost:3000/convidados"
+            if(input != ""){
+                URL += `?nome=${input}` ;
+            }
+            
+            const pegaConvidado = await fetch(URL, {
+                method : "GET",
+                headers : {
+                    "Content-Type" : "application/json"
+                }
+            })
+
+            const convidados = await pegaConvidado.json();
+            console.log(convidados);
+            let list = "";
+            convidados.forEach(convidado => {
+                list += 
+                `<tr style>
+                    <td>
+                        ${convidado.id}
+                    </td>
+                    <td>
+                        ${convidado.nome}
+                    </td>
+                    <td>
+                        ${convidado.presente}
+                    </td>
+                </tr>`
+                });
+            const lista = document.getElementById("lista").innerHTML = list;
+                        
+                        
+        }
+        getConvidados();
+        
+        async function insertConvidado(){
+            const novoUser = {
+                nome : document.getElementById("nome").value,
+                sobrenome : document.getElementById("sobre").value,
+                cpf : document.getElementById("cpf").value,
+                telefone : document.getElementById("telefone").value,
+                email : document.getElementById("email").value,
+                mesa : document.getElementById("mesa").value
+            }
+            
+            const insertConvidado = await fetch("http://localhost:3000/convidados", {
+                method : "POST",
+                headers : {
+                    "Content-Type" : "application/json",
+                    "x-access-token" : token
+                },
+                body : JSON.stringify(novoUser)
+            })
+            if(insertConvidado.ok){
+                getConvidados();
+                const formulario = document.getElementById("form").reset();
+            }else{
+                console.log("Deu ruim");
+            }
+            
+        }
+
+    </script>
+</body>
+</html>

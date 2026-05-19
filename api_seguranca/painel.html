@@ -77,7 +77,21 @@
                     <td>
                         <button onclick="deleteConvidado(${convidado.id})">Delete</button>    
                     </td>
-                </tr>`
+                    <td>
+                        <button onclick="atualizaConvidado(${convidado.id})">Atualizar</button>    
+                    </td>`;
+                    if(convidado.presente === 0){
+                        list +=` 
+                        <td>
+                            <button id="check" onclick="checkinConvidado(${convidado.id})">X</button>              
+                        </td>`;
+                    }else{
+                        list +=` 
+                        <td>
+                            <button id="check" onclick="checkinConvidado(${convidado.id})">V</button>              
+                        </td>`;
+                    }
+                list += "</tr>";
                 });
             const lista = document.getElementById("lista").innerHTML = list;
                         
@@ -111,8 +125,64 @@
             }
             
         }
+        
+        
+        async function deleteConvidado(id){
+            if(confirm("Certeza")){
+                const deletaConvidado = await fetch(`http://localhost:3000/convidados/${id}`, {
+                method : "DELETE",
+                headers : {
+                    "Content-Type" : "application/json",
+                    "x-access-token" : token
+                }
+            })
+            getConvidados();
+        }
+        
+    }
+    
+    async function atualizaConvidado(id){
+        const atualizaViado = {
+            nome : document.getElementById("nome").value,
+                sobrenome : document.getElementById("sobre").value,
+                cpf : document.getElementById("cpf").value,
+                telefone : document.getElementById("telefone").value,
+                email : document.getElementById("email").value,
+                mesa : document.getElementById("mesa").value
+            }
+            
+            const attConvidado = await fetch(`http://localhost:3000/convidados/${id}`, {
+                method : "PUT",
+                headers : {
+                    "Content-Type" : "application/json",
+                    "x-access-token" : token
+                },
+                body : JSON.stringify(atualizaViado)
+            })
+            if(attConvidado.ok){
+                getConvidados();
+                const formulario = document.getElementById("form").reset();
+            }else{
+                console.log("Deu ruim");
+            }
+        }
 
-    </script>
+        async function checkinConvidado(id){
+            const checaConvidado = await fetch(`http://localhost:3000/convidados/check/${id}`, {
+                method : "PUT",
+                headers : {
+                    "Content-Type" : "application/json",
+                    "x-acess-token" : token
+                }
+            })
+
+            if(checaConvidado){
+                getConvidados();
+            }else{
+                console.log("FUdeu")
+            }
+        }
+        
+        </script>
 </body>
 </html>
-

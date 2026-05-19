@@ -66,8 +66,8 @@
             console.log(convidados);
             let list = "";
             convidados.forEach(convidado => {
-                list += 
-                `<tr style>
+                list +=` 
+                <tr>
                     <td>
                         ${convidado.id}
                     </td>
@@ -75,10 +75,7 @@
                         ${convidado.nome}
                     </td>
                     <td>
-                        ${convidado.presente}
-                    </td>
-                    <td>
-                        <button id="deletar" data-user=${convidado.id}>delete</button>
+                        <button onclick="deleteConvidado(${convidado.id})">Delete</button>    
                     </td>
                 </tr>`
                 });
@@ -115,9 +112,7 @@
             
         }
 
-        async function deleteConvidado() {
-            
-        }
     </script>
 </body>
 </html>
+

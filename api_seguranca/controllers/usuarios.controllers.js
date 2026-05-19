@@ -47,12 +47,18 @@ export const updateUser = async (req, res) => {
     
     
     if(tipo && nome && cpf && email && senha){
-        const [result] = await db.query(sql, [tipo, nome, cpf, email, senha, id]);
-        if(result.affectedRows === 0){
-            res.status(404).json("Usuario não encontrado");
-        }else{
-            res.status(200).json("Usuario modificado com sucesso");
-        }
+        bcrypt.hash(senha, 10, async function(erro, hash){
+            if(erro){
+                console.log("Deu n")
+            }else{
+                const [result] = await db.query(sql, [tipo, nome, cpf, email, hash, id]);
+                if(result.affectedRows === 0){
+                    res.status(404).json("Usuario não encontrado");
+                }else{
+                    res.status(200).json("Usuario modificado com sucesso");
+                }
+            }
+        })
     }else{
         res.status(400).json("Faltam dados para preencher");
     }

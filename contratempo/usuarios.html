@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Usuários</title>
+</head>
+<body>
+    
+    <table border="1">
+        <thead>
+            <tr>
+                <td>Nome</td>
+                <td>Email</td>
+                <td>Tipo</td>
+            </tr>
+        </thead>
+        <tbody id="corpoLista"></tbody>
+    </table>
+
+    <div>
+        <h1>Inserindo</h1>
+        <form id="inseridor">
+            <input type="text" placeholder="Nome" id="nome"><br>
+            <input type="number" placeholder="Cpf" id="cpf"><br>
+            <input type="number" placeholder="Telefone" id="telefone"><br>
+            <input type="email" placeholder="Email" id="email"><br>
+            <select id="tipo">
+                <option value="">--</option>
+                <option value="0">Adimininastrô</option>
+                <option value="1">Cerimonialista</option>
+            </select><br>
+            <input type="password" placeholder="Insira sua senha" id="senha"><br>
+            <div id="erro"></div>
+            <button type="button" onclick="insertUsuario()">Inserir</button>
+        </form>
+    </div>
+
+    <div style="display: none;" id="atualizando">
+        <h1 style="text-align: right;">Atualizando</h1>
+        <form style="text-align: right;">
+            <input type="hidden" placeholder="" id="idAtt">
+            <input type="text" placeholder="Nome" id="nomeAtt"><br>
+            <input type="number" placeholder="Cpf" id="cpfAtt"><br>
+            <input type="number" placeholder="Telefone" id="telefoneAtt"><br>
+            <input type="email" placeholder="Email" id="emailAtt"><br>
+            <select id="tipoAtt">
+                <option value="">--</option>
+                <option value="0">Adimininastrô</option>
+                <option value="1">Cerimonialista</option>
+            </select><br>
+            <input type="password" placeholder="Insira sua senha" id="senhaAtt"><br>
+            <button type="button" onclick="atualizaUsuario()">Atualizar</button>
+        </form>
+    </div>
+
+
+    <script>
+        async function listaUsuario(){
+            const buscar = await fetch(`http://localhost:3000/usuarios`, {
+                method : "GET",
+                headers : {
+                    "Content-Type" : "application/json"
+                }
+            })
+            let lista = "";
+            const usuarios = await buscar.json()
+            let tipo ="";
+            usuarios.forEach(usuario => {
+                if(usuario.tipo === 0){
+                    tipo = "Adimininastrô";
+                }else if(usuario.tipo === 1){
+                    tipo = "Cerimonialista";
+                }
+                lista += 
+                `<tr>
+                    <td>
+                        ${usuario.nome}
+                    </td>
+                    <td>
+                        ${usuario.email}
+                    </td>
+                    <td>
+                        ${tipo}
+                    </td>
+                    <td>
+                        <button type="button" onclick="preparaInput(${usuario.id})">Atualizar</button>
+                    </td>
+                    <td>
+                        <button type="button" onclick="deletaUsuario(${usuario.id})">Deletar</button>        
+                    </td>
+
+                `
+            })
+            lista += `</tr>`;
+            document.querySelector("#corpoLista").innerHTML = lista;
+        }
+        listaUsuario();
+
+        async function insertUsuario(){
+            const tipo = document.querySelector("#tipo").value;
+            const nome = document.querySelector("#nome").value;
+            const cpf = document.querySelector("#cpf").value;
+            const telefone = document.querySelector("#telefone").value;
+            const email = document.querySelector("#email").value;
+            const senha = document.querySelector("#senha").value;
+
+            if(nome === ""){
+                document.querySelector("#erro").innerHTML = "Preencha seu nome";
+                return false
+            }
+
+            const insere = await fetch(`http://localhost:3000/usuarios`, {
+                method : "POST",
+                headers : {
+                    "Content-Type" : "application/json"
+                },
+                body : JSON.stringify({
+                    tipo : tipo,
+                    nome : nome,
+                    cpf : cpf,
+                    telefone : telefone,
+                    email : email,
+                    senha : senha
+                })
+            })
+            
+            listaUsuario();
+            document.querySelector("#inseridor").reset();
+        }
+
+        async function preparaInput(id){
+            const pegador = await fetch(`http://localhost:3000/usuarios?id=${id}`, {
+                method : "GET",
+                headers : {
+                    "Content-Type" : "application/json"
+                }
+            })
+
+            const usuarios = await pegador.json();
+            const usuario = usuarios[0];
+
+            document.querySelector("#atualizando").style.display = "Block";
+            document.querySelector("#nomeAtt").value = usuario.nome;
+            document.querySelector("#cpfAtt").value = usuario.cpf;
+            document.querySelector("#telefoneAtt").value = usuario.telefone;
+            document.querySelector("#emailAtt").value = usuario.email;
+            document.querySelector("#tipoAtt").value = usuario.tipo;
+            document.querySelector("#idAtt").value = usuario.id;
+
+        }
+
+        async function atualizaUsuario(){
+            const id = document.querySelector("#idAtt").value;
+            const tipo = document.querySelector("#tipoAtt").value;
+            const nome = document.querySelector("#nomeAtt").value;
+            const cpf = document.querySelector("#cpfAtt").value;
+            const telefone = document.querySelector("#telefoneAtt").value;
+            const email = document.querySelector("#emailAtt").value;
+            const senha = document.querySelector("#senhaAtt").value;
+
+            const atualizar = await fetch(`http://localhost:3000/usuarios/${id}`, {
+                method : "PUT",
+                headers : {
+                    "Content-Type" : "application/json"
+                },
+                body : JSON.stringify({
+                    tipo : tipo,
+                    nome : nome,
+                    cpf : cpf,
+                    telefone : telefone,
+                    email : email,
+                    senha : senha
+                })
+            })
+            listaUsuario();
+            document.querySelector("#atualizando").style.display = "none";
+        }
+    
+        async function deletaUsuario(id){
+            const deletar = await fetch(`http://localhost:3000/usuarios/${id}`, {
+                method : "DELETE",
+                headers : {
+                    "Content-Type" : "application/json"
+                }
+            })
+            listaUsuario();
+        }
+
+
+    </script>
+</body>
+</html>

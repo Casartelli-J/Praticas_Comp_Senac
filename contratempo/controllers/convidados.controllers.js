@@ -1,6 +1,6 @@
 import db from "../config/database.js";
 
-export const getConvidado = async (req, res) =>{
+export const getConvidado = async (req, res) => {
     const {id} = req.query;
     const {nome} = req.query;
 
@@ -11,50 +11,67 @@ export const getConvidado = async (req, res) =>{
         sql += " AND id = ? ";
         params.push(id);
     }
-    
+
     if(nome){
         sql += " AND nome LIKE ? ";
         params.push(`%${nome}%`);
     }
 
     const [rows] = await db.query(sql, params);
-    res.status(200).json(rows)
-    console.log(rows)
-};
+    res.status(200).json(rows);
+}
 
-export const insertConvidados = async (req, res) => {
+export const insertConvidado = async (req, res) => {
     const {nome, sobrenome, cpf, telefone, email, mesa} = req.body;
     const sql = "INSERT INTO convidados(nome, sobrenome, cpf, telefone, email, mesa) VALUES (?, ?, ?, ?, ?, ?)";
     
-    if(nome, sobrenome, cpf, telefone, email, mesa){
+    if(nome && sobrenome && cpf && telefone && email && mesa){
         const [result] = await db.query(sql, [nome, sobrenome, cpf, telefone, email, mesa]);
         res.status(201).json("Convidado inserido com sucesso");
     }else{
-        res.status(404).json("Faltou coisa");
+        res.status(404).json("Falta dados");
     }
 }
 
 export const updateConvidado = async (req, res) => {
-    const {id} = req.params;
     const {nome, sobrenome, cpf, telefone, email, mesa} = req.body;
+    const {id} = req.params;
     const sql = "UPDATE convidados SET nome = ?, sobrenome = ?, cpf = ?, telefone = ?, email = ?, mesa = ? WHERE id = ?";
-    
-    if(nome, sobrenome, cpf, telefone, email, mesa){
+
+    if(nome && sobrenome && cpf && telefone && email && mesa && id){
         const [result] = await db.query(sql, [nome, sobrenome, cpf, telefone, email, mesa, id]);
-        res.status(201).json("Convidado atualizado com sucesso");
+        res.status(200).json("Convidado atualizado com sucesso");
     }else{
-        res.status(404).json("Faltou coisa");
+        res.status(404).json("Falta dados");
     }
+    
 }
 
-export const delConvidado = async (req, res) => {
+export const deleteConvidado = async (req, res) => {
     const {id} = req.params;
     const sql = "DELETE FROM convidados WHERE id = ?";
 
     if(id){
         const [result] = await db.query(sql, [id]);
-        res.status(200).json("Foi")
+        res.status(200).json("Convidado removido com sucesso");
     }else{
-        res.status(404).json("Fudeu")
+        res.status(404).json("Convidado não encontrado");
     }
+}
+
+export const checkinConvidado = async (req, res) => {
+    const {id} = req.params;
+    let sql = "SELECT id, presente FROM convidados WHERE id = ?";
+    const [convidado] = await db.query(sql, [id]);
+
+    if(convidado[0]["presente"] === 0){
+       sql = "UPDATE convidados SET presente = 1 WHERE id = ?";
+       const [result] = await db.query(sql, [id]);
+       res.status(200).json("Convidado marcado como presente") ;
+    }else{
+        sql = "UPDATE convidados SET presente = 0 WHERE id = ?";
+        const [result] = await db.query(sql, [id]);
+        res.status(200).json("Convidado marcado como ausente") ;
+    }
+
 }

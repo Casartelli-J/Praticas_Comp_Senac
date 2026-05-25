@@ -1,0 +1,8 @@
+body{
+    background-color: rgb(15 23 42);
+    font-family: 'Inter', sans-serif;
+}
+
+.translucido{
+    background: rgba(255, 255, 255, 0.05);
+}

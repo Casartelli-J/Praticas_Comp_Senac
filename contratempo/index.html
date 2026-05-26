@@ -4,41 +4,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/css.css">
 </head>
 
 <body>
-    
-    <div style="padding-top: 220px; padding-bottom: 20px;">
-        <input type="text" placeholder="Busque o convidado" id="busca">
-        <button type="button" style="border: 1px solid green; background-color: green; color: white;" onclick="pegaConvidado()">Buscar</button>
+    <header class="container-fluid">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark border-bottom border-body" data-bs-theme="dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Área Cerimonialista</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Index</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="convidados.html">Convidados</a>
+                    </li>
+                    <li class="nav-item">
+                <a class="nav-link" href="usuarios.html">Usuários</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        </nav>
+        
+    </header>
+    <div class="row justify-content-center">
+        <div class="col-10 d-flex pt-5">
+            <input type="text" class="form-control py-2" placeholder="Busque o convidado" id="busca">
+            <button type="button" class="btn btn-success" onclick="pegaConvidado()">Buscar</button>
+            <button class="btn btn-danger" id="sair" onclick="sair()">Sair</button>
+        </div>
     </div>
-    <table border="1">
-        <thead>
-            <tr>
-                <td>Nome</td>
-                <td>Email</td>
-                <td>Mesa</td>
-                <td>Presente</td>
-            </tr>
-        </thead>
-        <tbody id="fds">
-        </tbody>
-    </table>
-    <br>
-    <form style="margin-left: 10px;">
-        <h3>Adicionar pangaré</h3>
-        <input type="text" placeholder="Insira seu nome" id="nome"><br>
-        <input type="text" placeholder="Insira seu sobrenome" id="sobrenome"><br>
-        <input type="number" placeholder="Insira seu cpf" id="cpf"><br>
-        <input type="number" placeholder="Insira seu telefone" id="telefone"><br>
-        <input type="text" placeholder="Insira seu email" id="email"><br>
-        <input type="number" placeholder="Insira seu mesa" id="mesa">
-        <div id="erro"></div>
-        <button type="button" style="border: 1px solid green; margin-top: 10px; background-color: green; color: white;" onclick="insertConvidado()">Adicionar</button>
-    </form>
+    <section class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-10 pt-5">
+                <table class="table table-dark table-striped-columns">
+                    <thead>
+                        <tr>
+                            <td>Nome</td>
+                            <td>Email</td>
+                            <td>Mesa</td>
+                            <td>Presente</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody id="fds">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </section>
 
 
     <script>
+        async function sair(){
+            localStorage.clear();
+            window.location.href = "login.html";
+        }
+
+        const token = localStorage.getItem("token");
+        if(!token){
+            alert("Você não tem permissão")
+            window.location.href = "login.html";
+        }
+
+       
+        
+
         async function pegaConvidado(){
             const input = document.querySelector("#busca").value;
             const convidados = await fetch(`http://localhost:3000/convidados?nome=${input}`, {
@@ -65,13 +108,7 @@
                         ${convidado.presente}
                     </td>
                     <td>
-                        <button type="button" onclick="atualizaConvidado(${convidado.id})">Atualizar</button>
-                    </td>
-                    <td>
-                        <button type="button" onclick="deletaConvidado(${convidado.id})">Deletar</button>
-                    </td>
-                    <td>
-                        <button type="button" onclick="checkConvidado(${convidado.id})">Presente</button>
+                        <button type="button" class="btn btn-primary" onclick="checkConvidado(${convidado.id})">Presente</button>
                     </td>
                 `
             });
@@ -79,73 +116,7 @@
             document.querySelector("#fds").innerHTML = tabela;
         }
         pegaConvidado();
-
-        async function insertConvidado(){
-            const nome = document.querySelector("#nome").value;
-            const sobrenome = document.querySelector("#sobrenome").value;
-            const cpf = document.querySelector("#cpf").value;
-            const telefone = document.querySelector("#telefone").value;
-            const email = document.querySelector("#email").value;
-            const mesa = document.querySelector("#mesa").value;
-
-            const inserir = await fetch(`http://localhost:3000/convidados/`, {
-                method : "POST",
-                headers : {
-                    "Content-Type" : "application/json"
-                },
-                body : JSON.stringify({
-                    nome : nome,
-                    sobrenome : sobrenome,
-                    cpf : cpf,
-                    telefone : telefone,
-                    email : email,
-                    mesa : mesa
-                })                
-            });
-            if(!inserir.ok){
-                let erroAviso = "<p>Não foi</p>";
-                document.querySelector("#erro").innerHTML = erroAviso;
-            }
-            pegaConvidado();
-        }
-
-        async function atualizaConvidado(id){
-            const nome = document.querySelector("#nome").value;
-            const sobrenome = document.querySelector("#sobrenome").value;
-            const cpf = document.querySelector("#cpf").value;
-            const telefone = document.querySelector("#telefone").value;
-            const email = document.querySelector("#email").value;
-            const mesa = document.querySelector("#mesa").value;
-
-            const atualizador = await fetch(`http://localhost:3000/convidados/${id}`,{ 
-                method : "PUT",
-                headers : {
-                    "Content-Type" : "application/json"
-                },
-                body : JSON.stringify({
-                    nome : nome,
-                    sobrenome : sobrenome,
-                    cpf : cpf,
-                    telefone : telefone,
-                    email : email,
-                    mesa : mesa
-                })
-            })
-            pegaConvidado();
-        }
-    
-        async function deletaConvidado(id){
-            if(confirm("Ah vá?")){
-                const deletar = await fetch(`http://localhost:3000/convidados/${id}`, {
-                    method : "DELETE",
-                    headers : {
-                        "Content-Type" : "application/json"
-                    }
-                })
-                pegaConvidado();
-            }
-        }
-    
+   
         async function checkConvidado(id){
             const check = await fetch(`http://localhost:3000/convidados/check/${id}`, {
                 method : "PUT",

@@ -6,3 +6,27 @@ body{
 .translucido{
     background: rgba(255, 255, 255, 0.05);
 }
+
+.algo .invalid-tooltip{
+    right: 0;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+.fundo{
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+}
+
+.fundo .btn{
+    padding-left: 13px !important;
+    padding-right: 100px !important;
+    padding-top: 25px !important;
+    padding-bottom: 25px !important;
+
+}

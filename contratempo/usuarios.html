@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel Usuários</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/css.css">
 </head>
+
 <body>
     
     <table border="1">
@@ -56,6 +60,13 @@
 
 
     <script>
+        const token = localStorage.getItem("token");
+        const tipo = localStorage.getItem("tipo");
+        if(!token && tipo === "1"){
+            alert("Você não tem permissão")
+            window.location.href = "login.html";
+        }
+        
         async function listaUsuario(){
             const buscar = await fetch(`http://localhost:3000/usuarios`, {
                 method : "GET",

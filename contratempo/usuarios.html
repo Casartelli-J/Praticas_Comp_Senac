@@ -11,52 +11,78 @@
 
 <body>
     
-    <table border="1">
-        <thead>
-            <tr>
-                <td>Nome</td>
-                <td>Email</td>
-                <td>Tipo</td>
-            </tr>
-        </thead>
-        <tbody id="corpoLista"></tbody>
-    </table>
-
-    <div>
-        <h1>Inserindo</h1>
-        <form id="inseridor">
-            <input type="text" placeholder="Nome" id="nome"><br>
-            <input type="number" placeholder="Cpf" id="cpf"><br>
-            <input type="number" placeholder="Telefone" id="telefone"><br>
-            <input type="email" placeholder="Email" id="email"><br>
-            <select id="tipo">
-                <option value="">--</option>
-                <option value="0">Adimininastrô</option>
-                <option value="1">Cerimonialista</option>
-            </select><br>
-            <input type="password" placeholder="Insira sua senha" id="senha"><br>
-            <div id="erro"></div>
-            <button type="button" onclick="insertUsuario()">Inserir</button>
-        </form>
+    
+    <div class="container-fluid">
+        <div class="row justify-content-between">
+            <div class="col-4 ms-5">
+                <h1 class="text-white text-center mt-5">Inserindo</h1>
+                <form class="col-12" id="inseridor">
+                    <p class="text-white m-0">Nome:</p>
+                    <input type="text" class="form-control" placeholder="Nome" id="nome"><br>
+                    <p class="text-white m-0">CPF:</p>
+                    <input type="number" class="form-control" placeholder="Cpf" id="cpf"><br>
+                    <p class="text-white m-0">Num.Telefone:</p>
+                    <input type="number" class="form-control" placeholder="Telefone" id="telefone"><br>
+                    <p class="text-white m-0">Email:</p>
+                    <input type="email" class="form-control" placeholder="Email" id="email"><br>
+                    <p class="text-white m-0">Cargo:</p>
+                    <select class="form-control" id="tipo">
+                        <option value="">--</option>
+                        <option value="0">Adimininastrô</option>
+                        <option value="1">Cerimonialista</option>
+                    </select><br>
+                    <p class="text-white m-0">Senha:</p>
+                    <input type="password" class="form-control" placeholder="Insira sua senha" id="senha"><br>
+                    <div id="erro"></div>
+                    <button class="btn text-white btn-success" type="button" onclick="insertUsuario()">Inserir</button>
+                </form>
+            </div>
+            <div class="col-1 mt-5">
+                <button class="btn btn-danger col-6" onclick="sair()">Sair</button>
+            </div>
+            <div class="col-4" style="display: none;" id="atualizando">
+                <h1 class="text-white text-center mt-5" style="text-align: right;">Atualizando</h1>
+                <form class="text-start col-12" style="text-align: right;">
+                    <input type="hidden" placeholder="" id="idAtt">
+                    <p class="text-white m-0">Nome:</p>
+                    <input type="text" class="form-control" placeholder="Nome" id="nomeAtt"><br>
+                    <p class="text-white m-0">CPF:</p>
+                    <input type="number" class="form-control" placeholder="Cpf" id="cpfAtt"><br>
+                    <p class="text-white m-0">Num.Telefone:</p>
+                    <input type="number" class="form-control" placeholder="Telefone" id="telefoneAtt"><br>
+                    <p class="text-white m-0">Email:</p>
+                    <input type="email" class="form-control" placeholder="Email" id="emailAtt"><br>
+                    <p class="text-white m-0">Tipo:</p>
+                    <select class="form-control" id="tipoAtt">
+                        <option value="">--</option>
+                        <option value="0">Adimininastrô</option>
+                        <option value="1">Cerimonialista</option>
+                    </select><br>
+                    <p class="text-white m-0">Senha:</p>
+                    <input class="form-control" type="password" placeholder="Insira sua senha" id="senhaAtt"><br>
+                    <button class="btn btn-success" type="button" onclick="atualizaUsuario()">Atualizar</button>
+                </form>
+            </div>
+        </div>
+        <div class="row mt-5 justify-content-center">
+            <div class="col-5">
+                <table class="table table-dark" border="1">
+                    <thead>
+                        <tr>
+                            <td>Nome</td>
+                            <td>Email</td>
+                            <td>Tipo</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody id="corpoLista"></tbody>
+                </table>
+            </div>
+        </div>
     </div>
-
-    <div style="display: none;" id="atualizando">
-        <h1 style="text-align: right;">Atualizando</h1>
-        <form style="text-align: right;">
-            <input type="hidden" placeholder="" id="idAtt">
-            <input type="text" placeholder="Nome" id="nomeAtt"><br>
-            <input type="number" placeholder="Cpf" id="cpfAtt"><br>
-            <input type="number" placeholder="Telefone" id="telefoneAtt"><br>
-            <input type="email" placeholder="Email" id="emailAtt"><br>
-            <select id="tipoAtt">
-                <option value="">--</option>
-                <option value="0">Adimininastrô</option>
-                <option value="1">Cerimonialista</option>
-            </select><br>
-            <input type="password" placeholder="Insira sua senha" id="senhaAtt"><br>
-            <button type="button" onclick="atualizaUsuario()">Atualizar</button>
-        </form>
-    </div>
+    
+    
 
 
     <script>
@@ -95,10 +121,10 @@
                         ${tipo}
                     </td>
                     <td>
-                        <button type="button" onclick="preparaInput(${usuario.id})">Atualizar</button>
+                        <button class="btn btn-primary" type="button" onclick="preparaInput(${usuario.id})">Atualizar</button>
                     </td>
                     <td>
-                        <button type="button" onclick="deletaUsuario(${usuario.id})">Deletar</button>        
+                        <button class="btn btn-danger" type="button" onclick="deletaUsuario(${usuario.id})">Deletar</button>        
                     </td>
 
                 `
@@ -196,6 +222,12 @@
                 }
             })
             listaUsuario();
+        }
+
+
+        async function sair(){
+            localStorage.clear();
+            window.location.href = "login.html";
         }
 
 

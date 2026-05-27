@@ -88,8 +88,9 @@
     <script>
         const token = localStorage.getItem("token");
         const tipo = localStorage.getItem("tipo");
-        if(!token && tipo === "1"){
+        if(!token || tipo != "0"){
             alert("Você não tem permissão")
+            localStorage.clear()
             window.location.href = "login.html";
         }
         

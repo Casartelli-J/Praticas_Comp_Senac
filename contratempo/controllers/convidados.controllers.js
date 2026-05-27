@@ -1,4 +1,7 @@
 import db from "../config/database.js";
+import {jsPDF} from "jspdf";
+import autoTable from "jspdf-autotable";
+
 
 export const getConvidado = async (req, res) => {
     const {id} = req.query;
@@ -74,4 +77,29 @@ export const checkinConvidado = async (req, res) => {
         res.status(200).json("Convidado marcado como ausente") ;
     }
 
+}
+
+export const exportaConvidado = async (req, res) => {
+    const sql = "SELECT * FROM convidados WHERE 1 ";
+    const [rows] = await db.query(sql)
+    const convidados = [rows]
+    const convidado = convidados[0]
+    let linhas = []
+    convidado.forEach(convidado =>{
+        if(convidado.presente === 0){
+            convidado.presente = "Ausente"
+        }else{
+            convidado.presente = "Presente"
+        }
+        const novalinha = [convidado.nome, convidado.sobrenome, convidado.cpf, convidado.presente];
+        linhas.push(novalinha)
+    })
+
+    const doc = jsPDF();
+    autoTable(doc, {
+        head : [["Nome", "Sobrenome", "CPF", "Presente"]],
+        body : linhas
+        
+    });
+    doc.save("Arquivo_fds.pdf")
 }

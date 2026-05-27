@@ -39,6 +39,15 @@
 
 
     <script>
+
+        const token = localStorage.getItem("token");
+        const tipo = localStorage.getItem("tipo");
+        if(!token || tipo != "0"){
+            alert("Você não tem permissão")
+            localStorage.clear()
+            window.location.href = "login.html";
+        }
+
         async function pegaConvidado(){
             const input = document.querySelector("#busca").value;
             const convidados = await fetch(`http://localhost:3000/convidados?nome=${input}`, {

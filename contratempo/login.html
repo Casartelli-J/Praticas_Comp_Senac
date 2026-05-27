@@ -62,9 +62,9 @@
                 localStorage.setItem("token", grupo.token);
                 localStorage.setItem("tipo", grupo.tipo);
                 if(grupo.tipo === 0){
-                    window.location.href = "index.html";
+                    window.location.href = "dashboard.html";
                 }else{
-                    window.location.href = "convidados.html";
+                    window.location.href = "index.html";
                 }
             }else{
                 document.querySelector("#alerta").style.display = "block";

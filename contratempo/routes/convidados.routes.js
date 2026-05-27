@@ -4,6 +4,7 @@ import { Router } from "express";
 export const convidadoRouter = Router();
 
 convidadoRouter.get("/", convidados.getConvidado);
+convidadoRouter.get("/export", convidados.exportaConvidado);
 convidadoRouter.post("/", convidados.insertConvidado);
 convidadoRouter.put("/:id", convidados.updateConvidado);
 convidadoRouter.delete("/:id", convidados.deleteConvidado);

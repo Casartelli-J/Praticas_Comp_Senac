@@ -216,13 +216,15 @@
         }
     
         async function deletaUsuario(id){
-            const deletar = await fetch(`http://localhost:3000/usuarios/${id}`, {
-                method : "DELETE",
-                headers : {
-                    "Content-Type" : "application/json"
-                }
-            })
-            listaUsuario();
+            if(confirm("Tem certeza?")){
+                const deletar = await fetch(`http://localhost:3000/usuarios/${id}`, {
+                    method : "DELETE",
+                    headers : {
+                        "Content-Type" : "application/json"
+                    }
+                })
+                listaUsuario();
+            }
         }
 
 

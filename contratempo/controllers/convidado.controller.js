@@ -86,22 +86,28 @@ export const exportaConvidado = async (req, res) => {
     const convidado = convidados[0]
     let linhas = []
     convidado.forEach(convidado =>{
-        if(convidado.presente === 0){
-            convidado.presente = "Ausente"
-        }else{
-            convidado.presente = "Presente"
-        }
+        convidado.presente = 
+            convidado.presente === 0 ? "Ausente" : "Presente";
         const novalinha = [convidado.nome, convidado.sobrenome, convidado.cpf, convidado.presente];
         linhas.push(novalinha)
     })
 
     const doc = jsPDF();
+    doc.text("Lista de Convidados:", 10, 10);
     autoTable(doc, {
         head : [["Nome", "Sobrenome", "CPF", "Presente"]],
         body : linhas
         
     });
-    doc.save("Arquivo_fds.pdf")
+
+    const buffer = Buffer.from(doc.output("arraybuffer"));
+
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader(
+        "Content-Disposition",
+        'inline; filename="convidados.pdf"'
+    );
+
+    res.send(buffer)
 }
 
-export const checkConvidado

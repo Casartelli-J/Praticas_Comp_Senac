@@ -1,5 +1,5 @@
 import { Router } from "express";
-import * as convidado from "../controllers/convidado.controller.js";
+import * as convidados from "../controllers/convidado.controller.js";
 
 export const convidadoRouter = Router();
 

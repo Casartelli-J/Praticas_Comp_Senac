@@ -4,39 +4,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/css.css">
 </head>
 
 <body>
-    
-    <div style="padding-top: 220px; padding-bottom: 20px;">
-        <input type="text" placeholder="Busque o convidado" id="busca">
-        <button type="button" style="border: 1px solid green; background-color: green; color: white;" onclick="pegaConvidado()">Buscar</button>
-    </div>
-    <table border="1">
-        <thead>
-            <tr>
-                <td>Nome</td>
-                <td>Email</td>
-                <td>Mesa</td>
-                <td>Presente</td>
-            </tr>
-        </thead>
-        <tbody id="fds">
-        </tbody>
-    </table>
-    <br>
-    <form style="margin-left: 10px;">
-        <h3>Adicionar pangaré</h3>
-        <input type="text" placeholder="Insira seu nome" id="nome"><br>
-        <input type="text" placeholder="Insira seu sobrenome" id="sobrenome"><br>
-        <input type="number" placeholder="Insira seu cpf" id="cpf"><br>
-        <input type="number" placeholder="Insira seu telefone" id="telefone"><br>
-        <input type="text" placeholder="Insira seu email" id="email"><br>
-        <input type="number" placeholder="Insira seu mesa" id="mesa">
-        <div id="erro"></div>
-        <button type="button" style="border: 1px solid green; margin-top: 10px; background-color: green; color: white;" onclick="insertConvidado()">Adicionar</button>
-    </form>
 
+    <div class="modal fade" id="atualizaModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Área de Atualização</h1>
+                </div>
+                <div class="modal-body">
+                    <form class="col-12">
+                        <h3 class="">Atualizar pangaré</h3>
+                        <p class="m-0">Nome:</p>
+                        <input type="text" class="form-control mb-2" placeholder="Insira seu nome" id="nome">
+                        <p class="m-0">Sobrenome:</p>
+                        <input type="text" class="form-control mb-2" placeholder="Insira seu sobrenome" id="sobrenome">
+                        <p class="m-0">CPF:</p>
+                        <input type="number" class="form-control mb-2" placeholder="Insira seu cpf" id="cpf">
+                        <p class="m-0">Telefone:</p>
+                        <input type="number" class="form-control mb-2" placeholder="Insira seu telefone" id="telefone">
+                        <p class="m-0">Email:</p>
+                        <input type="text"  class="form-control mb-2" placeholder="Insira seu email" id="email">
+                        <p class="m-0">Mesa:</p>
+                        <input type="number" class="form-control mb-2" placeholder="Insira seu mesa" id="mesa">
+                        <div id="erro"></div>
+                        <button type="button" class="btn btn-success mt-3" onclick="insertConvidado()">Adicionar</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 d-flex  justify-content-center mt-5">
+                <div class="col-5">
+                    <input class="form-control py-2" type="text" placeholder="Busque o convidado" id="busca">
+                </div>
+                <button class="btn btn-success" type="button" onclick="pegaConvidado()">Buscar</button>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-5">
+            <div class="col-8">
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <td>Nome</td>
+                            <td>Email</td>
+                            <td>Mesa</td>
+                            <td>Presente</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody id="fds">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br>
+        <form class="col-2">
+            <h3 class="text-white">Adicionar pangaré</h3>
+            <p class="text-white m-0">Nome:</p>
+            <input type="text" class="form-control mb-2" placeholder="Insira seu nome" id="nome">
+            <p class="text-white m-0">Sobrenome:</p>
+            <input type="text" class="form-control mb-2" placeholder="Insira seu sobrenome" id="sobrenome">
+            <p class="text-white m-0">CPF:</p>
+            <input type="number" class="form-control mb-2" placeholder="Insira seu cpf" id="cpf">
+            <p class="text-white m-0">Telefone:</p>
+            <input type="number" class="form-control mb-2" placeholder="Insira seu telefone" id="telefone">
+            <p class="text-white m-0">Email:</p>
+            <input type="text"  class="form-control mb-2" placeholder="Insira seu email" id="email">
+            <p class="text-white m-0">Mesa:</p>
+            <input type="number" class="form-control mb-2" placeholder="Insira seu mesa" id="mesa">
+            <div id="erro"></div>
+            <button type="button" class="btn btn-success mt-3" onclick="insertConvidado()">Adicionar</button>
+        </form>
+
+    </div>
 
     <script>
 
@@ -74,13 +129,13 @@
                         ${convidado.presente}
                     </td>
                     <td>
-                        <button type="button" onclick="atualizaConvidado(${convidado.id})">Atualizar</button>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#atualizaModal" type="button" onclick="atualizaConvidado(${convidado.id})">Atualizar</button>
                     </td>
                     <td>
-                        <button type="button" onclick="deletaConvidado(${convidado.id})">Deletar</button>
+                        <button class="btn btn-danger" type="button" onclick="deletaConvidado(${convidado.id})">Deletar</button>
                     </td>
                     <td>
-                        <button type="button" onclick="checkConvidado(${convidado.id})">Presente</button>
+                        <button class="btn btn-info" type="button" onclick="checkConvidado(${convidado.id})">Presente</button>
                     </td>
                 `
             });

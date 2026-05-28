@@ -32,17 +32,21 @@
                             Senha faltante
                         </div>
                     </div>
-                    <button type="button" class="btn bg-primary-subtle" onclick="login()">Acessar</button>
+                    <button type="submit" class="btn bg-primary-subtle">Acessar</button>
                 </form>
             </div>
         </div>
     </div>
 
     <script>
-        async function login(){
-            const email = document.querySelector("#email").value;
-            const senha = document.querySelector("#senha").value;
-
+        const formulario = document.querySelector("#formu");
+        formulario.addEventListener("submit", (event) =>{
+                const email = document.querySelector("#email").value;
+                const senha = document.querySelector("#senha").value;
+                event.preventDefault();
+                login(email, senha);
+            })
+        async function login(email, senha){
             const logar = await fetch(`http://localhost:3000/usuarios/login`, {
                 method : "POST",
                 headers : {

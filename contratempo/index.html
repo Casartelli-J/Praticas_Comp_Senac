@@ -109,9 +109,15 @@
             const exporta = await fetch(`http://localhost:3000/convidados/export`, {
                 method : "GET",
                 headers : {
-                    "Content-Type" : "application/json"
+                    "Content-Type" : "application/pdf"
                 }
             })
+
+            const blob = await exporta.blob();
+
+            const url = URL.createObjectURL(blob);
+
+            window.open(url);
         }
     </script>
 </body>

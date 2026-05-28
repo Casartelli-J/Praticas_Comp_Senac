@@ -1,7 +1,7 @@
-import { createApp } from "./app.js";
+import createApp from "./app.js";
 
 const app = createApp();
 
-app.listen(3000, "localhost", ()=> {
-    console.log("Rodando na porta 3000");
+app.listen(3000, () =>{
+    console.log("Rodando");
 })

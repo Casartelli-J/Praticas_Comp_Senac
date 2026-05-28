@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/css.css">
+    <title>Log page</title>
+</head>
+
+<body>
+
+    <h1 class="text-center text-white my-5 fs-1 fw-bolder">FAÇA SEU LOGIN</h1>
+
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-12 col-md-6 my-5">
+                <div class="alert alert-danger" style="display: none;" id="alerta">Email ou Senha inválidos</div>
+                <form class="translucido rounded p-5 border border-white border-opacity-25 needs-validation algo" id="formu" novalidate>
+                    <div class="mb-3 position-relative emailForm">
+                        <label for="exampleInputEmail1" class="form-label text-white">E-mail:</label>
+                        <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Insira seu E-mail" required>
+                        <div class="invalid-tooltip">
+                            E-mail faltante
+                        </div>
+                    </div>
+                    <div class="mb-3 position-relative senhaForm">
+                        <label for="exampleInputPassword1" class="form-label text-white">Senha:</label>
+                        <input type="password" class="form-control" id="senha" placeholder="Insira sua senha" required>
+                        <div class="invalid-tooltip">
+                            Senha faltante
+                        </div>
+                    </div>
+                    <button type="button" class="btn bg-primary-subtle" onclick="login()">Acessar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function login(){
+            const email = document.querySelector("#email").value;
+            const senha = document.querySelector("#senha").value;
+
+            const logar = await fetch(`http://localhost:3000/usuarios/login`, {
+                method : "POST",
+                headers : {
+                    "Content-Type" : "application/json"
+                },
+                body : JSON.stringify({
+                    email : email,
+                    senha : senha
+                })
+            });
+
+            const grupo = await logar.json()
+            console.log(grupo.auth)
+            console.log(grupo.token)
+            console.log(grupo.tipo)
+            if(grupo.auth){
+                localStorage.setItem("token", grupo.token);
+                localStorage.setItem("tipo", grupo.tipo);
+                if(grupo.tipo === 0){
+                    window.location.href = "dashboard.html";
+                }else{
+                    window.location.href = "index.html";
+                }
+            }else{
+                document.querySelector("#alerta").style.display = "block";
+            }
+            
+        }
+        
+        const forms = document.querySelectorAll('.needs-validation')
+        const emailForm = document.querySelector(".emailForm");
+        const senhaForm = document.querySelector(".senhaForm");
+        emailForm.addEventListener("focusout", () =>{
+            emailForm.classList.add('was-validated');
+        })
+        senhaForm.addEventListener("focusout", () =>{
+            senhaForm.classList.add('was-validated');
+        })
+        </script>
+
+</body>
+
+</html>

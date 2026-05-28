@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Usuários</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/css.css">
+</head>
+
+<body>
+    
+    
+    <div class="container-fluid">
+        <div class="row justify-content-between">
+            <div class="col-4 ms-5">
+                <h1 class="text-white text-center mt-5">Inserindo</h1>
+                <form class="col-12" id="inseridor">
+                    <p class="text-white m-0">Nome:</p>
+                    <input type="text" class="form-control" placeholder="Nome" id="nome"><br>
+                    <p class="text-white m-0">CPF:</p>
+                    <input type="number" class="form-control" placeholder="Cpf" id="cpf"><br>
+                    <p class="text-white m-0">Num.Telefone:</p>
+                    <input type="number" class="form-control" placeholder="Telefone" id="telefone"><br>
+                    <p class="text-white m-0">Email:</p>
+                    <input type="email" class="form-control" placeholder="Email" id="email"><br>
+                    <p class="text-white m-0">Cargo:</p>
+                    <select class="form-control" id="tipo">
+                        <option value="">--</option>
+                        <option value="0">Adimininastrô</option>
+                        <option value="1">Cerimonialista</option>
+                    </select><br>
+                    <p class="text-white m-0">Senha:</p>
+                    <input type="password" class="form-control" placeholder="Insira sua senha" id="senha"><br>
+                    <div id="erro"></div>
+                    <button class="btn text-white btn-success" type="button" onclick="insertUsuario()">Inserir</button>
+                </form>
+            </div>
+            <div class="col-1 mt-5">
+                <button class="btn btn-danger col-6" onclick="sair()">Sair</button>
+            </div>
+            <div class="col-4" style="display: none;" id="atualizando">
+                <h1 class="text-white text-center mt-5" style="text-align: right;">Atualizando</h1>
+                <form class="text-start col-12" style="text-align: right;">
+                    <input type="hidden" placeholder="" id="idAtt">
+                    <p class="text-white m-0">Nome:</p>
+                    <input type="text" class="form-control" placeholder="Nome" id="nomeAtt"><br>
+                    <p class="text-white m-0">CPF:</p>
+                    <input type="number" class="form-control" placeholder="Cpf" id="cpfAtt"><br>
+                    <p class="text-white m-0">Num.Telefone:</p>
+                    <input type="number" class="form-control" placeholder="Telefone" id="telefoneAtt"><br>
+                    <p class="text-white m-0">Email:</p>
+                    <input type="email" class="form-control" placeholder="Email" id="emailAtt"><br>
+                    <p class="text-white m-0">Tipo:</p>
+                    <select class="form-control" id="tipoAtt">
+                        <option value="">--</option>
+                        <option value="0">Adimininastrô</option>
+                        <option value="1">Cerimonialista</option>
+                    </select><br>
+                    <p class="text-white m-0">Senha:</p>
+                    <input class="form-control" type="password" placeholder="Insira sua senha" id="senhaAtt"><br>
+                    <button class="btn btn-success" type="button" onclick="atualizaUsuario()">Atualizar</button>
+                </form>
+            </div>
+        </div>
+        <div class="row mt-5 justify-content-center">
+            <div class="col-5">
+                <table class="table table-dark" border="1">
+                    <thead>
+                        <tr>
+                            <td>Nome</td>
+                            <td>Email</td>
+                            <td>Tipo</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody id="corpoLista"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    
+
+
+    <script>
+        const token = localStorage.getItem("token");
+        const tipo = localStorage.getItem("tipo");
+        if(!token || tipo != "0"){
+            alert("Você não tem permissão")
+            localStorage.clear()
+            window.location.href = "login.html";
+        }
+        
+        async function listaUsuario(){
+            const buscar = await fetch(`http://localhost:3000/usuarios`, {
+                method : "GET",
+                headers : {
+                    "Content-Type" : "application/json"
+                }
+            })
+            let lista = "";
+            const usuarios = await buscar.json()
+            let tipo ="";
+            usuarios.forEach(usuario => {
+                if(usuario.tipo === 0){
+                    tipo = "Adimininastrô";
+                }else if(usuario.tipo === 1){
+                    tipo = "Cerimonialista";
+                }
+                lista += 
+                `<tr>
+                    <td>
+                        ${usuario.nome}
+                    </td>
+                    <td>
+                        ${usuario.email}
+                    </td>
+                    <td>
+                        ${tipo}
+                    </td>
+                    <td>
+                        <button class="btn btn-primary" type="button" onclick="preparaInput(${usuario.id})">Atualizar</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" type="button" onclick="deletaUsuario(${usuario.id})">Deletar</button>        
+                    </td>
+
+                `
+            })
+            lista += `</tr>`;
+            document.querySelector("#corpoLista").innerHTML = lista;
+        }
+        listaUsuario();
+
+        async function insertUsuario(){
+            const tipo = document.querySelector("#tipo").value;
+            const nome = document.querySelector("#nome").value;
+            const cpf = document.querySelector("#cpf").value;
+            const telefone = document.querySelector("#telefone").value;
+            const email = document.querySelector("#email").value;
+            const senha = document.querySelector("#senha").value;
+
+            if(nome === ""){
+                document.querySelector("#erro").innerHTML = "Preencha seu nome";
+                return false
+            }
+
+            const insere = await fetch(`http://localhost:3000/usuarios`, {
+                method : "POST",
+                headers : {
+                    "Content-Type" : "application/json"
+                },
+                body : JSON.stringify({
+                    tipo : tipo,
+                    nome : nome,
+                    cpf : cpf,
+                    telefone : telefone,
+                    email : email,
+                    senha : senha
+                })
+            })
+            
+            listaUsuario();
+            document.querySelector("#inseridor").reset();
+        }
+
+        async function preparaInput(id){
+            const pegador = await fetch(`http://localhost:3000/usuarios?id=${id}`, {
+                method : "GET",
+                headers : {
+                    "Content-Type" : "application/json"
+                }
+            })
+
+            const usuarios = await pegador.json();
+            const usuario = usuarios[0];
+
+            document.querySelector("#atualizando").style.display = "Block";
+            document.querySelector("#nomeAtt").value = usuario.nome;
+            document.querySelector("#cpfAtt").value = usuario.cpf;
+            document.querySelector("#telefoneAtt").value = usuario.telefone;
+            document.querySelector("#emailAtt").value = usuario.email;
+            document.querySelector("#tipoAtt").value = usuario.tipo;
+            document.querySelector("#idAtt").value = usuario.id;
+
+        }
+
+        async function atualizaUsuario(){
+            const id = document.querySelector("#idAtt").value;
+            const tipo = document.querySelector("#tipoAtt").value;
+            const nome = document.querySelector("#nomeAtt").value;
+            const cpf = document.querySelector("#cpfAtt").value;
+            const telefone = document.querySelector("#telefoneAtt").value;
+            const email = document.querySelector("#emailAtt").value;
+            const senha = document.querySelector("#senhaAtt").value;
+
+            const atualizar = await fetch(`http://localhost:3000/usuarios/${id}`, {
+                method : "PUT",
+                headers : {
+                    "Content-Type" : "application/json"
+                },
+                body : JSON.stringify({
+                    tipo : tipo,
+                    nome : nome,
+                    cpf : cpf,
+                    telefone : telefone,
+                    email : email,
+                    senha : senha
+                })
+            })
+            listaUsuario();
+            document.querySelector("#atualizando").style.display = "none";
+        }
+    
+        async function deletaUsuario(id){
+            const deletar = await fetch(`http://localhost:3000/usuarios/${id}`, {
+                method : "DELETE",
+                headers : {
+                    "Content-Type" : "application/json"
+                }
+            })
+            listaUsuario();
+        }
+
+
+        async function sair(){
+            localStorage.clear();
+            window.location.href = "login.html";
+        }
+
+
+    </script>
+</body>
+</html>

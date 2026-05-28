@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/css.css">
+</head>
+
+<body>
+    <button class="btn btn-primary" type="button" onclick="exportaConvidado()">Exporta</button>
+
+    <div class="row justify-content-center">
+        <div class="col-10 d-flex pt-5">
+            <input type="text" class="form-control py-2" placeholder="Busque o convidado" id="busca">
+            <button type="button" class="btn btn-success" onclick="pegaConvidado()">Buscar</button>
+            <button class="btn btn-danger" id="sair" onclick="sair()">Sair</button>
+        </div>
+    </div>
+    <section class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-5 pt-5">
+                <table class="table table-dark table-striped-columns">
+                    <thead>
+                        <tr>
+                            <td>Nome</td>
+                            <td>Email</td>
+                            <td>Mesa</td>
+                            <td>Presente</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody id="fds">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </section>
+
+
+    <script>
+        async function sair(){
+            localStorage.clear();
+            window.location.href = "login.html";
+        } 
+       
+        const token = localStorage.getItem("token");
+        if(!token){
+            alert("Você não tem permissão")
+            window.location.href = "login.html";
+        }
+        
+        async function pegaConvidado(){
+            const input = document.querySelector("#busca").value;
+            const convidados = await fetch(`http://localhost:3000/convidados?nome=${input}`, {
+                method : "GET",
+                headers : {
+                    "Content-Type" : "application/json"
+                }
+            });
+            const lista = await convidados.json();
+            let tabela = "";
+            lista.forEach(convidado => {
+                let conv = convidado.presente;
+                if(conv === 0){
+                    conv = `<i class="bi bi-person-x-fill"></i>`;
+                }else{
+                    conv = `<i class="bi bi-person-check-fill"></i>`;
+                }
+                tabela += 
+                `<tr>
+                    <td>
+                        ${convidado.nome}
+                    </td>
+                    <td>
+                        ${convidado.email}
+                    </td>
+                    <td>
+                        ${convidado.mesa}
+                    </td>
+                    <td>
+                        ${conv}
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary" onclick="checkConvidado(${convidado.id})">Presente</button>
+                    </td>
+                `
+            });
+            tabela += "</tr>"
+            document.querySelector("#fds").innerHTML = tabela;
+        }
+        pegaConvidado();
+   
+        async function checkConvidado(id){
+            const check = await fetch(`http://localhost:3000/convidados/check/${id}`, {
+                method : "PUT",
+                headers : {
+                    "Content-Type" : "application/json"
+                }
+            });
+            pegaConvidado();
+        }
+
+        async function exportaConvidado(){
+            const exporta = await fetch(`http://localhost:3000/convidados/export`, {
+                method : "GET",
+                headers : {
+                    "Content-Type" : "application/json"
+                }
+            })
+        }
+    </script>
+</body>
+</html>

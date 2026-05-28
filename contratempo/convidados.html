@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel</title>
+</head>
+
+<body>
+    
+    <div style="padding-top: 220px; padding-bottom: 20px;">
+        <input type="text" placeholder="Busque o convidado" id="busca">
+        <button type="button" style="border: 1px solid green; background-color: green; color: white;" onclick="pegaConvidado()">Buscar</button>
+    </div>
+    <table border="1">
+        <thead>
+            <tr>
+                <td>Nome</td>
+                <td>Email</td>
+                <td>Mesa</td>
+                <td>Presente</td>
+            </tr>
+        </thead>
+        <tbody id="fds">
+        </tbody>
+    </table>
+    <br>
+    <form style="margin-left: 10px;">
+        <h3>Adicionar pangaré</h3>
+        <input type="text" placeholder="Insira seu nome" id="nome"><br>
+        <input type="text" placeholder="Insira seu sobrenome" id="sobrenome"><br>
+        <input type="number" placeholder="Insira seu cpf" id="cpf"><br>
+        <input type="number" placeholder="Insira seu telefone" id="telefone"><br>
+        <input type="text" placeholder="Insira seu email" id="email"><br>
+        <input type="number" placeholder="Insira seu mesa" id="mesa">
+        <div id="erro"></div>
+        <button type="button" style="border: 1px solid green; margin-top: 10px; background-color: green; color: white;" onclick="insertConvidado()">Adicionar</button>
+    </form>
+
+
+    <script>
+
+        const token = localStorage.getItem("token");
+        const tipo = localStorage.getItem("tipo");
+        if(!token || tipo != "0"){
+            alert("Você não tem permissão")
+            localStorage.clear()
+            window.location.href = "login.html";
+        }
+
+        async function pegaConvidado(){
+            const input = document.querySelector("#busca").value;
+            const convidados = await fetch(`http://localhost:3000/convidados?nome=${input}`, {
+                method : "GET",
+                headers : {
+                    "Content-Type" : "application/json"
+                }
+            });
+            const lista = await convidados.json();
+            let tabela = "";
+            lista.forEach(convidado => {
+                tabela += 
+                `<tr>
+                    <td>
+                        ${convidado.nome}
+                    </td>
+                    <td>
+                        ${convidado.email}
+                    </td>
+                    <td>
+                        ${convidado.mesa}
+                    </td>
+                    <td>
+                        ${convidado.presente}
+                    </td>
+                    <td>
+                        <button type="button" onclick="atualizaConvidado(${convidado.id})">Atualizar</button>
+                    </td>
+                    <td>
+                        <button type="button" onclick="deletaConvidado(${convidado.id})">Deletar</button>
+                    </td>
+                    <td>
+                        <button type="button" onclick="checkConvidado(${convidado.id})">Presente</button>
+                    </td>
+                `
+            });
+            tabela += "</tr>"
+            document.querySelector("#fds").innerHTML = tabela;
+        }
+        pegaConvidado();
+
+        async function insertConvidado(){
+            const nome = document.querySelector("#nome").value;
+            const sobrenome = document.querySelector("#sobrenome").value;
+            const cpf = document.querySelector("#cpf").value;
+            const telefone = document.querySelector("#telefone").value;
+            const email = document.querySelector("#email").value;
+            const mesa = document.querySelector("#mesa").value;
+
+            const inserir = await fetch(`http://localhost:3000/convidados/`, {
+                method : "POST",
+                headers : {
+                    "Content-Type" : "application/json"
+                },
+                body : JSON.stringify({
+                    nome : nome,
+                    sobrenome : sobrenome,
+                    cpf : cpf,
+                    telefone : telefone,
+                    email : email,
+                    mesa : mesa
+                })                
+            });
+            if(!inserir.ok){
+                let erroAviso = "<p>Não foi</p>";
+                document.querySelector("#erro").innerHTML = erroAviso;
+            }
+            pegaConvidado();
+        }
+
+        async function atualizaConvidado(id){
+            const nome = document.querySelector("#nome").value;
+            const sobrenome = document.querySelector("#sobrenome").value;
+            const cpf = document.querySelector("#cpf").value;
+            const telefone = document.querySelector("#telefone").value;
+            const email = document.querySelector("#email").value;
+            const mesa = document.querySelector("#mesa").value;
+
+            const atualizador = await fetch(`http://localhost:3000/convidados/${id}`,{ 
+                method : "PUT",
+                headers : {
+                    "Content-Type" : "application/json"
+                },
+                body : JSON.stringify({
+                    nome : nome,
+                    sobrenome : sobrenome,
+                    cpf : cpf,
+                    telefone : telefone,
+                    email : email,
+                    mesa : mesa
+                })
+            })
+            pegaConvidado();
+        }
+    
+        async function deletaConvidado(id){
+            if(confirm("Ah vá?")){
+                const deletar = await fetch(`http://localhost:3000/convidados/${id}`, {
+                    method : "DELETE",
+                    headers : {
+                        "Content-Type" : "application/json"
+                    }
+                })
+                pegaConvidado();
+            }
+        }
+    
+        async function checkConvidado(id){
+            const check = await fetch(`http://localhost:3000/convidados/check/${id}`, {
+                method : "PUT",
+                headers : {
+                    "Content-Type" : "application/json"
+                }
+            });
+            pegaConvidado();
+        }
+    </script>
+</body>
+</html>

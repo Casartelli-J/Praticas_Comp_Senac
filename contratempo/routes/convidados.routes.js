@@ -1,9 +1,9 @@
-import * as convidados from "../controllers/convidados.controllers.js";
 import { Router } from "express";
+import * as convidado from "../controllers/convidado.controller.js";
 
 export const convidadoRouter = Router();
 
-convidadoRouter.get("/", convidados.getConvidado);
-convidadoRouter.post("/", convidados.insertConvidados);
-convidadoRouter.put("/:id", convidados.updateConvidado);
-convidadoRouter.delete("/:id", convidados.delConvidado);
+convidadoRouter.get("/", convidado.getConvidado);
+convidadoRouter.post("/", convidado.insertConvidado);
+convidadoRouter.put("/:id", convidado.updateConvidado);
+convidadoRouter.delete("/:id", convidado.deleteConvidado);

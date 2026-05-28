@@ -9,5 +9,6 @@ export function createApp(){
     app.use(express.json());
     app.use("/convidados", convidadoRouter);
 
-    return app;
+    return app
 }
+

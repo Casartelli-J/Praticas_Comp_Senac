@@ -5,8 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/css.css">
+    <style>
+        @media (min-width: 768px) {
+            .sidebar-md-vh {
+                min-height: 100vh;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -15,11 +23,40 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5">Área de Atualização</h1>
+                    <h1 class="modal-title fs-5">Atualizar Convidado</h1>
                 </div>
                 <div class="modal-body">
-                    <form class="col-12">
-                        <h3 class="">Atualizar pangaré</h3>
+                    <form class="col-12" id="atualizador">
+                        <p class="m-0">Nome:</p>
+                        <input type="text" class="form-control mb-2" placeholder="Insira seu nome" id="AttNome">
+                        <p class="m-0">Sobrenome:</p>
+                        <input type="text" class="form-control mb-2" placeholder="Insira seu sobrenome" id="AttSobrenome">
+                        <p class="m-0">CPF:</p>
+                        <input type="number" class="form-control mb-2" placeholder="Insira seu cpf" id="AttCpf">
+                        <p class="m-0">Telefone:</p>
+                        <input type="number" class="form-control mb-2" placeholder="Insira seu telefone" id="AttTelefone">
+                        <p class="m-0">Email:</p>
+                        <input type="text"  class="form-control mb-2" placeholder="Insira seu email" id="AttEmail">
+                        <p class="m-0">Mesa:</p>
+                        <input type="number" class="form-control mb-2" placeholder="Insira seu mesa" id="AttMesa">
+                        <div id="erro"></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="bt-inserir" onclick="atualizaConvidado()">Atualizar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="insereModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Inserir Convidado</h1>
+                </div>
+                <div class="modal-body">
+                    <form class="col-12" id="inseridor">
                         <p class="m-0">Nome:</p>
                         <input type="text" class="form-control mb-2" placeholder="Insira seu nome" id="nome">
                         <p class="m-0">Sobrenome:</p>
@@ -33,68 +70,76 @@
                         <p class="m-0">Mesa:</p>
                         <input type="number" class="form-control mb-2" placeholder="Insira seu mesa" id="mesa">
                         <div id="erro"></div>
-                        <button type="button" class="btn btn-success mt-3" onclick="insertConvidado()">Adicionar</button>
                     </form>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="bt-inserir" onclick="insertConvidado()">Adicionar</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
     </div>
-    
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12 d-flex  justify-content-center mt-5">
-                <div class="col-5">
-                    <input class="form-control py-2" type="text" placeholder="Busque o convidado" id="busca">
-                </div>
-                <button class="btn btn-success" type="button" onclick="pegaConvidado()">Buscar</button>
-            </div>
-        </div>
-        <div class="row justify-content-center mt-5">
-            <div class="col-8">
-                <table class="table table-dark">
-                    <thead>
-                        <tr>
-                            <td>Nome</td>
-                            <td>Email</td>
-                            <td>Mesa</td>
-                            <td>Presente</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </thead>
-                    <tbody id="fds">
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <br>
-        <form class="col-2">
-            <h3 class="text-white">Adicionar pangaré</h3>
-            <p class="text-white m-0">Nome:</p>
-            <input type="text" class="form-control mb-2" placeholder="Insira seu nome" id="nome">
-            <p class="text-white m-0">Sobrenome:</p>
-            <input type="text" class="form-control mb-2" placeholder="Insira seu sobrenome" id="sobrenome">
-            <p class="text-white m-0">CPF:</p>
-            <input type="number" class="form-control mb-2" placeholder="Insira seu cpf" id="cpf">
-            <p class="text-white m-0">Telefone:</p>
-            <input type="number" class="form-control mb-2" placeholder="Insira seu telefone" id="telefone">
-            <p class="text-white m-0">Email:</p>
-            <input type="text"  class="form-control mb-2" placeholder="Insira seu email" id="email">
-            <p class="text-white m-0">Mesa:</p>
-            <input type="number" class="form-control mb-2" placeholder="Insira seu mesa" id="mesa">
-            <div id="erro"></div>
-            <button type="button" class="btn btn-success mt-3" onclick="insertConvidado()">Adicionar</button>
-        </form>
 
-    </div>
+    <section class="container-fluid">
+        <div class="row justify-content-between sidebar-md-vh">
+            <div class="col-2 bg-dark">
+                <h3 class="ms-3 mt-3 text-primary">Casamento</h3>
+                <div class="col-4 text-white">
+                    <p class="m-0">bem vindo,</p>
+                    <p>Nome</p>
+                </div>
+                <hr class="text-white">
+                <ul class="nav flex-column">
+                    <li class="nav-item rounded col-12 mb-2">
+                        <a class="nav-link link-light" href="dashboard.html" target="_blank"><i class="bi bi-bar-chart-line-fill me-1 me-md-2"></i>Dashboard</a>
+                    </li>
+                    <li class="nav-item rounded col-12 mb-2">
+                        <a class="nav-link link-light" href="usuarios.html"><i class="bi bi-person-circle me-1"></i>Usuários</a>
+                    </li>
+                    <li class="nav-item bg-primary rounded col-12 mb-2">
+                        <a class="nav-link link-light" href="convidados.html"><i class="bi bi-person-lines-fill me-1"></i>Convidados</a>
+                    </li>
+                    <li class="nav-item rounded col-12">
+                        <a class="nav-link link-light" href="index.html" target="_blank"><i class="bi bi-card-checklist me-1"></i>Presença</a>
+                    </li>
+                </ul>
+
+                <hr class="text-white text-bottom">
+                <button class="btn btn-danger" onclick="sair()">Sair</button>
+            </div>
+            <div class="col-10 bg-white sidebar-md-vh">
+                <h2 class="mt-5 ms-4 fw-bold">Convidados:</h2>
+                
+                <button class="btn btn-success mt-3 ms-4 px-2 px-3" data-bs-toggle="modal" data-bs-target="#insereModal"><i class="bi bi-person-check-fill me-1"></i>Inserir Convidado</button>
+
+                <div class="col-11 ms-4 table-responsive mt-3">
+                    <table class="table table-bordered my-2 shadow">
+                        <thead>
+                            <tr class="fw-bold">
+                                <td>Nome</td>
+                                <td>Email</td>
+                                <td>Mesa</td>
+                                <td>Presente</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody id="fds">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <script>
 
+        async function sair(){
+            localStorage.clear();
+            window.location.href = "login.html";
+        }
+        
         const token = localStorage.getItem("token");
         const tipo = localStorage.getItem("tipo");
         if(!token || tipo != "0"){
@@ -102,10 +147,9 @@
             localStorage.clear()
             window.location.href = "login.html";
         }
-
+        
         async function pegaConvidado(){
-            const input = document.querySelector("#busca").value;
-            const convidados = await fetch(`http://localhost:3000/convidados?nome=${input}`, {
+            const convidados = await fetch(`http://localhost:3000/convidados`, {
                 method : "GET",
                 headers : {
                     "Content-Type" : "application/json"
@@ -143,6 +187,7 @@
             document.querySelector("#fds").innerHTML = tabela;
         }
         pegaConvidado();
+        
 
         async function insertConvidado(){
             const nome = document.querySelector("#nome").value;
@@ -169,17 +214,19 @@
             if(!inserir.ok){
                 let erroAviso = "<p>Não foi</p>";
                 document.querySelector("#erro").innerHTML = erroAviso;
+            }else{
+                pegaConvidado();
+                document.querySelector("#inseridor").reset()
             }
-            pegaConvidado();
         }
 
         async function atualizaConvidado(id){
-            const nome = document.querySelector("#nome").value;
-            const sobrenome = document.querySelector("#sobrenome").value;
-            const cpf = document.querySelector("#cpf").value;
-            const telefone = document.querySelector("#telefone").value;
-            const email = document.querySelector("#email").value;
-            const mesa = document.querySelector("#mesa").value;
+            const nome = document.querySelector("#AttNome").value;
+            const sobrenome = document.querySelector("#AttSobrenome").value;
+            const cpf = document.querySelector("#AttCpf").value;
+            const telefone = document.querySelector("#AttTelefone").value;
+            const email = document.querySelector("#AttEmail").value;
+            const mesa = document.querySelector("#AttMesa").value;
 
             const atualizador = await fetch(`http://localhost:3000/convidados/${id}`,{ 
                 method : "PUT",
@@ -196,6 +243,7 @@
                 })
             })
             pegaConvidado();
+            document.querySelector("#atualizador")
         }
     
         async function deletaConvidado(id){

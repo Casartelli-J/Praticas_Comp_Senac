@@ -11,8 +11,8 @@ export const login = async (req, res) => {
         const user = usuario[0]
         const comparaSenha = await bcrypt.compare(senha, user["senha"]);
         if(comparaSenha){
-            const token = jwt.sign({id : user["id"], tipo : user["tipo"], nome : user["nome"]}, senhaToken, {expiresIn: "1h"});
-            res.status(200).json({auth : true, tipo : user["tipo"], token : token});
+            const token = jwt.sign({id : user["id"], tipo : user["tipo"]}, senhaToken, {expiresIn: "1h"});
+            res.status(200).json({auth : true, tipo : user["tipo"], id: user["id"], token : token});
         }else{
             res.status(404).json("Senha incorreta")
         }

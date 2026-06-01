@@ -65,6 +65,7 @@
             if(grupo.auth){
                 localStorage.setItem("token", grupo.token);
                 localStorage.setItem("tipo", grupo.tipo);
+                localStorage.setItem("id", grupo.id)
                 if(grupo.tipo === 0){
                     window.location.href = "dashboard.html";
                 }else{

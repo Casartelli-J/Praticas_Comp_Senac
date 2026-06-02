@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel</title>
+    <title>Painel - Convidados</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
@@ -25,6 +25,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5">Atualizar Convidado</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form class="col-12" id="atualizador">
@@ -46,7 +47,6 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success" id="bt-atualizar" onclick="atualizaConvidado()">Atualizar</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -84,16 +84,16 @@
 
     <section class="container-fluid">
         <div class="row justify-content-between sidebar-md-vh">
-            <div class="col-md-3 bg-dark">
-                <h3 class="ms-3 mt-3 text-primary">Casamento</h3>
-                <div class="col-4 text-white">
-                    <p class="m-0">bem vindo,</p>
-                    <p>Nome</p>
+            <div class="col-md-2 bg-dark">
+                <h3 class="ms-1 mt-3 mb-0 text-primary">Casamento</h3>
+                <div class="col-4 ms-1">
+                    <p class="m-0 text-secondary">Bem vindo,</p>
+                    <p class="text-white fs-5" id="nomeUsuario"></p>
                 </div>
                 <hr class="text-white">
                 <ul class="nav text-center text-sm-start text-md-start">
                     <li class="nav-item rounded col-6 col-md-12 mb-2">
-                        <a class="nav-link link-light" href="dashboard.html" target="_blank"><i class="bi bi-bar-chart-line-fill me-1 me-md-2"></i>Dashboard</a>
+                        <a class="nav-link link-light" href="dashboard.html"><i class="bi bi-bar-chart-line-fill me-1 me-md-2"></i>Dashboard</a>
                     </li>
                     <li class="nav-item rounded col-6 col-md-12 mb-2">
                         <a class="nav-link link-light" href="usuarios.html"><i class="bi bi-person-circle me-1"></i>Usuários</a>
@@ -102,47 +102,47 @@
                         <a class="nav-link link-light" href="convidados.html"><i class="bi bi-person-lines-fill me-1"></i>Convidados</a>
                     </li>
                     <li class="nav-item rounded col-6 col-md-12">
-                        <a class="nav-link link-light" href="index.html" target="_blank"><i class="bi bi-card-checklist me-1"></i>Presença</a>
+                        <a class="nav-link link-light" href="index.html" target="_blank"><i class="bi bi-card-checklist me-1"></i>Presença<i class="bi bi-arrow-up-right-square ms-2"></i></a>
                     </li>
                 </ul>
 
                 <hr class="text-white text-bottom">
-                <button class="btn btn-danger mb-4" onclick="sair()">Sair</button>
+                <button class="btn btn-danger mb-4" onclick="sair()"><i class="bi bi-box-arrow-left me-2"></i>Sair</button>
             </div>
-            <div class="col-12 col-md-9 bg-white sidebar-md-vh">
-                <h2 class="mt-5 ms-4 fw-bold">Convidados:</h2>
-                
-                <button class="btn btn-success mt-3 ms-4 px-2 px-3" data-bs-toggle="modal" data-bs-target="#insereModal"><i class="bi bi-person-check-fill me-1"></i>Inserir Convidado</button>
-
-                <div class="alert alert-success alert-dismissible mt-3 d-none" role="alert" id="alertaVerde">
-                    <div>Usuário inserido com sucesso!</div>
-                    <div type="button" class="btn-close" data-bs-dismiss="alert"></div>
-                </div>
-                <div class="alert alert-danger alert-dismissible mt-3 d-none" role="alert" id="alertaVermelho">
-                    <div>Usuário inserido com sucesso!</div>
-                    <div type="button" class="btn-close" data-bs-dismiss="alert"></div>
-                </div>
-                <div class="alert alert-primary alert-dismissible mt-3 d-none" role="alert" id="alertaAzul">
-                    <div>Usuário inserido com sucesso!</div>
-                    <div type="button" class="btn-close" data-bs-dismiss="alert"></div>
-                </div>
-
-                <div class="col-12 ms-4 table-responsive mt-3">
-                    <table class="table table-bordered my-2 shadow">
-                        <thead>
-                            <tr class="fw-bold">
-                                <td>Nome</td>
-                                <td>Email</td>
-                                <td>Mesa</td>
-                                <td>Presente</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </thead>
-                        <tbody id="fds">
-                        </tbody>
-                    </table>
+            <div class="col-12 col-md-10 sidebar-md-vh">
+                <div class="container">
+                    <h2 class="mt-5 fw-bold">Convidados:</h2>
+                    
+                    <button class="btn btn-success mt-3 px-2 px-3" data-bs-toggle="modal" data-bs-target="#insereModal"><i class="bi bi-person-check-fill me-1"></i>Inserir Convidado</button>
+    
+                    <div class="alert alert-success alert-dismissible mt-3 d-none" role="alert" id="alertaVerde">
+                        <div>Usuário inserido com sucesso!</div>
+                        <div type="button" class="btn-close" data-bs-dismiss="alert"></div>
+                    </div>
+                    <div class="alert alert-danger alert-dismissible mt-3 d-none" role="alert" id="alertaVermelho">
+                        <div>Usuário inserido com sucesso!</div>
+                        <div type="button" class="btn-close" data-bs-dismiss="alert"></div>
+                    </div>
+                    <div class="alert alert-primary alert-dismissible mt-3 d-none" role="alert" id="alertaAzul">
+                        <div>Usuário inserido com sucesso!</div>
+                        <div type="button" class="btn-close" data-bs-dismiss="alert"></div>
+                    </div>
+    
+                    <div class="col-12 table-responsive mt-3">
+                        <table class="table table-bordered my-2 shadow">
+                            <thead>
+                                <tr class="fw-bold">
+                                    <td>Nome</td>
+                                    <td>Email</td>
+                                    <td>Mesa</td>
+                                    <td>Presente</td>
+                                    <td></td>
+                                </tr>
+                            </thead>
+                            <tbody id="fds">
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -165,6 +165,21 @@
             window.location.href = "login.html";
         }
 
+        async function apareceNome(){
+            const id = localStorage.getItem("id");
+            const pegaUser = await fetch(`http://localhost:3000/usuarios?id=${id}`, {
+                method : "GET",
+                headers : {
+                    "Content-Type" : "application/json"
+                }
+            });
+
+            const listaUser = await pegaUser.json();
+            const [user] = listaUser;
+            document.querySelector("#nomeUsuario").innerHTML = user.nome
+        }
+        apareceNome()
+
         
         const token = localStorage.getItem("token");
         const tipo = localStorage.getItem("tipo");
@@ -184,6 +199,12 @@
             const lista = await convidados.json();
             let tabela = "";
             lista.forEach(convidado => {
+                let conv = convidado.presente;
+                if(conv === 0){
+                    conv = `<i class="bi bi-person-x-fill fs-3 text-danger"></i>`;
+                }else{
+                    conv = `<i class="bi bi-person-check-fill fs-3 text-success"></i>`;
+                }
                 tabela += 
                 `<tr>
                     <td>
@@ -196,22 +217,18 @@
                         ${convidado.mesa}
                     </td>
                     <td>
-                        ${convidado.presente}
+                        ${conv}
                     </td>
                     <td>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#atualizaModal" type="button" onclick="preparaInput(${convidado.id})">Atualizar</button>
-                    </td>
-                    <td>
-                        <button class="btn btn-danger" type="button" onclick="deletaConvidado(${convidado.id})">Deletar</button>
-                    </td>
-                    <td>
-                        <button class="btn btn-info" type="button" onclick="checkConvidado(${convidado.id})">Presente</button>
+                        <button type="button" class="btn btn-dark" onclick="checkConvidado(${convidado.id})"><i class="bi bi-check-circle-fill me-1"></i>Presente</button>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#atualizaModal" type="button" onclick="preparaInput(${convidado.id})"><i class="bi bi-pencil-square me-1"></i>Atualizar</button> 
+                        <button class="btn btn-danger" type="button" onclick="deletaConvidado(${convidado.id})"><i class="bi bi-trash-fill me-1"></i>Deletar</button> 
                     </td>
                 `
             });
             tabela += "</tr>"
             document.querySelector("#fds").innerHTML = tabela;
-        }
+            };
         pegaConvidado();
         
 

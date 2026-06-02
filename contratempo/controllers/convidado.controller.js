@@ -6,6 +6,7 @@ import autoTable from "jspdf-autotable";
 export const getConvidado = async (req, res) => {
     const {id} = req.query;
     const {nome} = req.query;
+    const {presente} = req.query;
 
     let sql = "SELECT * FROM convidados WHERE 1 ";
     let params = [];
@@ -18,6 +19,11 @@ export const getConvidado = async (req, res) => {
     if(nome){
         sql += " AND nome LIKE ? ";
         params.push(`%${nome}%`);
+    }
+
+    if(presente){
+        sql += " AND presente = ? ";
+        params.push(presente);
     }
 
     const [rows] = await db.query(sql, params);

@@ -46,6 +46,7 @@
                 event.preventDefault();
                 login(email, senha);
             })
+
         async function login(email, senha){
             const logar = await fetch(`http://localhost:3000/usuarios/login`, {
                 method : "POST",

@@ -67,17 +67,13 @@
             </div>
         </div>
     </section>
-
-
+    
+    
     <script>
-        async function sair(){
-            localStorage.clear();
-            window.location.href = "login.html";
-        } 
-       
+        
         const token = localStorage.getItem("token");
         if(!token){
-            alert("Você não tem permissão")
+            alert("Você não tem permissão");
             window.location.href = "login.html";
         }
 
@@ -86,7 +82,8 @@
             const pegaUser = await fetch(`http://localhost:3000/usuarios?id=${id}`, {
                 method : "GET",
                 headers : {
-                    "Content-Type" : "application/json"
+                    "Content-Type" : "application/json",
+                    "x-access-token" : token
                 }
             });
 
@@ -96,6 +93,14 @@
         }
         apareceNome()
 
+
+        async function sair(){
+            localStorage.clear();
+            window.location.href = "login.html";
+        } 
+       
+
+
         
         async function pegaConvidado(){
             const input = document.querySelector("#busca").value;
@@ -103,7 +108,8 @@
             const convidados = await fetch(`http://localhost:3000/convidados?nome=${input}&presente=${filtro}`, {
                 method : "GET",
                 headers : {
-                    "Content-Type" : "application/json"
+                    "Content-Type" : "application/json",
+                    "x-access-token" : token
                 }
             });
             const lista = await convidados.json();
@@ -147,7 +153,8 @@
             const check = await fetch(`http://localhost:3000/convidados/check/${id}`, {
                 method : "PUT",
                 headers : {
-                    "Content-Type" : "application/json"
+                    "Content-Type" : "application/json",
+                    "x-access-token" : token
                 }
             });
             pegaConvidado();

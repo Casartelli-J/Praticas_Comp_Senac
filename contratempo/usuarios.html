@@ -112,6 +112,9 @@
                     <li class="nav-item rounded col-6 col-md-12">
                         <a class="nav-link link-light" href="index.html" target="_blank"><i class="bi bi-card-checklist me-1"></i>Presença<i class="bi bi-arrow-up-right-square ms-2"></i></a>
                     </li>
+                    <li class="nav-item rounded col-6 col-md-12 mb-2">
+                        <a class="nav-link link-light" href="mesas.html"><i class="bi bi-bar-chart-line-fill me-1 me-md-2"></i>Mesas</a>
+                    </li>
                 </ul>
 
                 <hr class="text-white text-bottom">
@@ -156,6 +159,15 @@
     </section>
 
     <script>
+
+        const token = localStorage.getItem("token");
+        const tipo = localStorage.getItem("tipo");
+        if(!token || tipo != "0"){
+            alert("Você não tem permissão")
+            localStorage.clear()
+            window.location.href = "login.html";
+        }
+
         const cpf = document.querySelector("#cpf");
         IMask(cpf, {
             mask: '000.000.000-00'
@@ -166,20 +178,15 @@
             mask: '(00) 00000-0000'
         });
 
-        const token = localStorage.getItem("token");
-        const tipo = localStorage.getItem("tipo");
-        if(!token || tipo != "0"){
-            alert("Você não tem permissão")
-            localStorage.clear()
-            window.location.href = "login.html";
-        }
+        
 
         async function apareceNome(){
             const id = localStorage.getItem("id");
             const pegaUser = await fetch(`http://localhost:3000/usuarios?id=${id}`, {
                 method : "GET",
                 headers : {
-                    "Content-Type" : "application/json"
+                    "Content-Type" : "application/json",
+                    "x-access-token" : token
                 }
             });
 
@@ -193,7 +200,8 @@
             const buscar = await fetch(`http://localhost:3000/usuarios`, {
                 method : "GET",
                 headers : {
-                    "Content-Type" : "application/json"
+                    "Content-Type" : "application/json",
+                    "x-access-token" : token               
                 }
             })
             let lista = "";
@@ -244,7 +252,8 @@
                 const insere = await fetch(`http://localhost:3000/usuarios`, {
                     method : "POST",
                     headers : {
-                        "Content-Type" : "application/json"
+                        "Content-Type" : "application/json",
+                        "x-access-token" : token
                     },
                     body : JSON.stringify({
                         tipo : tipo,
@@ -273,7 +282,8 @@
             const pegador = await fetch(`http://localhost:3000/usuarios?id=${id}`, {
                 method : "GET",
                 headers : {
-                    "Content-Type" : "application/json"
+                    "Content-Type" : "application/json",
+                    "x-access-token" : token
                 }
             })
 
@@ -308,7 +318,8 @@
             const atualizar = await fetch(`http://localhost:3000/usuarios/${id}`, {
                 method : "PUT",
                 headers : {
-                    "Content-Type" : "application/json"
+                    "Content-Type" : "application/json",
+                    "x-access-token" : token
                 },
                 body : JSON.stringify({
                     tipo : tipo,
@@ -336,7 +347,8 @@
                 const deletar = await fetch(`http://localhost:3000/usuarios/${id}`, {
                     method : "DELETE",
                     headers : {
-                        "Content-Type" : "application/json"
+                        "Content-Type" : "application/json",
+                        "x-access-token" : token    
                     }
                 })
                 listaUsuario();

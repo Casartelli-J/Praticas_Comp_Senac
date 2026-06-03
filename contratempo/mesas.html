@@ -30,23 +30,13 @@
                 <div class="modal-body">
                     <form class="col-12" id="atualizador">
                         <input type="hidden" id="AttId">
-                        <p class="m-0">Nome:</p>
-                        <input type="text" class="form-control mb-2" placeholder="Insira seu nome" id="AttNome">
-                        <p class="m-0">Sobrenome:</p>
-                        <input type="text" class="form-control mb-2" placeholder="Insira seu sobrenome" id="AttSobrenome">
-                        <p class="m-0">CPF:</p>
-                        <input type="text" class="form-control mb-2" placeholder="Insira seu cpf" id="AttCpf">
-                        <p class="m-0">Telefone:</p>
-                        <input type="text" class="form-control mb-2" placeholder="Insira seu telefone" id="AttTelefone">
-                        <p class="m-0">Email:</p>
-                        <input type="text"  class="form-control mb-2" placeholder="Insira seu email" id="AttEmail">
-                        <p class="m-0">Mesa:</p>
-                        <input type="number" class="form-control mb-2" placeholder="Insira seu mesa" id="AttMesa">
+                        <label>Quantidade de lugares:</label>
+                        <input class="form-control" type="number" id="AttQtd">
                         <div id="erro"></div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" id="bt-atualizar" onclick="atualizaConvidado()">Atualizar</button>
+                    <button type="button" class="btn btn-success" id="bt-atualizar" onclick="atualizaMesa()">Atualizar</button>
                 </div>
             </div>
         </div>
@@ -55,28 +45,18 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5">Inserir Convidado</h1>
+                    <h1 class="modal-title fs-5">Inserir Mesa</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form class="col-12" id="inseridor">
-                        <label class="m-0">Nome:</label>
-                        <input type="text" class="form-control mb-2" placeholder="Insira seu nome" id="nome">
-                        <label class="m-0">Sobrenome:</label>
-                        <input type="text" class="form-control mb-2" placeholder="Insira seu sobrenome" id="sobrenome">
-                        <label class="m-0">CPF:</label>
-                        <input type="text" class="form-control mb-2" placeholder="Insira seu cpf" id="cpf">
-                        <label class="m-0">Telefone:</label>
-                        <input type="text" class="form-control mb-2" placeholder="Insira seu telefone" id="telefone">
-                        <label class="m-0">Email:</label>
-                        <input type="text" class="form-control mb-2" placeholder="Insira seu email" id="email">
-                        <label class="m-0">Mesas Disponíveis:</label>
-                        <select class="form-select" id="mesas"></select>
+                        <label>Quantidade de lugares:</label>
+                        <input class="form-control" type="number" id="qtd">
                         <div id="erro"></div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" id="bt-inserir" onclick="insertConvidado()">Adicionar</button>
+                    <button type="button" class="btn btn-success" id="bt-inserir" onclick="insertMesa()">Adicionar</button>
                 </div>
             </div>
         </div>
@@ -98,13 +78,13 @@
                     <li class="nav-item rounded col-6 col-md-12 mb-2">
                         <a class="nav-link link-light" href="usuarios.html"><i class="bi bi-person-circle me-1"></i>Usuários</a>
                     </li>
-                    <li class="nav-item bg-primary rounded col-6 col-md-12 mb-2">
+                    <li class="nav-item rounded col-6 col-md-12 mb-2">
                         <a class="nav-link link-light" href="convidados.html"><i class="bi bi-person-lines-fill me-1"></i>Convidados</a>
                     </li>
                     <li class="nav-item rounded col-6 col-md-12">
                         <a class="nav-link link-light" href="index.html" target="_blank"><i class="bi bi-card-checklist me-1"></i>Presença<i class="bi bi-arrow-up-right-square ms-2"></i></a>
                     </li>
-                    <li class="nav-item rounded col-6 col-md-12 mb-2">
+                    <li class="nav-item bg-primary rounded col-6 col-md-12 mb-2">
                         <a class="nav-link link-light" href="mesas.html"><i class="bi bi-bar-chart-line-fill me-1 me-md-2"></i>Mesas</a>
                     </li>
                 </ul>
@@ -114,10 +94,29 @@
             </div>
             <div class="col-12 col-md-10 sidebar-md-vh">
                 <div class="container">
-                    <h2 class="mt-5 fw-bold">Convidados:</h2>
+                    <h2 class="mt-5 fw-bold">Dashboard:</h2>
                     
-                    <button class="btn btn-success mt-3 px-2 px-3" data-bs-toggle="modal" data-bs-target="#insereModal"><i class="bi bi-person-check-fill me-1"></i>Inserir Convidado</button>
-    
+                    <button class="btn btn-success mt-3 mb-3 px-2 px-3" data-bs-toggle="modal" data-bs-target="#insereModal">Inserir Mesa</button>
+
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <div class="card py-4 text-bg-success">
+                                <div class="card-body">
+                                    <h2>Presentes:</h2>
+                                    <div class="fs-1" id="presentes"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="card py-4 text-bg-danger">
+                                <div class="card-body">
+                                    <h2>Ausentes:</h2>
+                                    <div class="fs-1" id="ausentes"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="alert alert-success alert-dismissible mt-3 d-none" role="alert" id="alertaVerde">
                         <div>Usuário inserido com sucesso!</div>
                         <div type="button" class="btn-close" data-bs-dismiss="alert"></div>
@@ -135,11 +134,8 @@
                         <table class="table table-bordered my-2 shadow">
                             <thead>
                                 <tr class="fw-bold">
-                                    <td>Nome</td>
-                                    <td>Email</td>
                                     <td>Mesa</td>
-                                    <td>Presente</td>
-                                    <td></td>
+                                    <td>Cadeiras</td>
                                 </tr>
                             </thead>
                             <tbody id="fds">
@@ -153,11 +149,16 @@
 
     <script>
 
-        const token = localStorage.getItem("token");
+       const token = localStorage.getItem("token");
         const tipo = localStorage.getItem("tipo");
         if(!token || tipo != "0"){
             alert("Você não tem permissão")
             localStorage.clear()
+            window.location.href = "login.html";
+        }
+
+        async function sair(){
+            localStorage.clear();
             window.location.href = "login.html";
         }
 
@@ -177,109 +178,57 @@
         }
         apareceNome()
 
-        const cpf = document.querySelector("#cpf");
-        IMask(cpf, {
-            mask: '000.000.000-00'
-        });
-
-        const telefone = document.querySelector("#telefone");
-        IMask(telefone, {
-            mask: '(00) 00000-0000'
-        });
-
-        async function sair(){
-            localStorage.clear();
-            window.location.href = "login.html";
-        }
         
         
-        async function pegaConvidado(){
-            const convidados = await fetch(`http://localhost:3000/convidados`, {
+        async function pegaMesas(){
+            const mesas = await fetch(`http://localhost:3000/mesas/espaco?id=`, {
                 method : "GET",
                 headers : {
                     "Content-Type" : "application/json",
                     "x-access-token" : token
                 }
             });
-            const lista = await convidados.json();
+            const lista = await mesas.json();
             let tabela = "";
-            lista.forEach(convidado => {
-                let conv = convidado.presente;
-                if(conv === 0){
-                    conv = `<i class="bi bi-person-x-fill fs-3 text-danger"></i>`;
-                }else{
-                    conv = `<i class="bi bi-person-check-fill fs-3 text-success"></i>`;
-                }
+            lista.forEach(mesa => {
                 tabela += 
                 `<tr>
                     <td>
-                        ${convidado.nome}
+                        ${mesa.id}
                     </td>
                     <td>
-                        ${convidado.email}
+                        ${mesa.espacoTotal}
                     </td>
                     <td>
-                        ${convidado.mesa}
-                    </td>
-                    <td>
-                        ${conv}
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn-dark" onclick="checkConvidado(${convidado.id})"><i class="bi bi-check-circle-fill me-1"></i>Presente</button>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#atualizaModal" type="button" onclick="preparaInput(${convidado.id})"><i class="bi bi-pencil-square me-1"></i>Atualizar</button> 
-                        <button class="btn btn-danger" type="button" onclick="deletaConvidado(${convidado.id})"><i class="bi bi-trash-fill me-1"></i>Deletar</button> 
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#atualizaModal" type="button" onclick="preparaInput(${mesa.id})"><i class="bi bi-pencil-square me-1"></i>Atualizar</button> 
+                        <button class="btn btn-danger" type="button" onclick="deletaMesa(${mesa.id})"><i class="bi bi-trash" me-1"></i>Deletar</button> 
                     </td>
                 `
             });
             tabela += "</tr>"
             document.querySelector("#fds").innerHTML = tabela;
             };
-        pegaConvidado();
-        
-
-        async function selectMesas(){
-            const pegaMesas = await fetch("http://localhost:3000/mesas", {
-                method : "GET",
-                headers : {
-                    "Content-Type" : "application/json",
-                    "x-access-token" : token
-                }
-            })
-
-            const mesas = await pegaMesas.json();
-            let listaSelect = "";
-            listaSelect += `<option value="">--</option>`;
-            mesas.forEach(mesa =>{
-                listaSelect += `
-                    <option>${mesa.id}</option>
-                `
-            });
-            document.querySelector("#mesas").innerHTML = listaSelect;
+        pegaMesas();
+        function repeatedTask() {
+            pegaMesas();
+            setTimeout(repeatedTask, 120000);
         }
-        selectMesas();
-        
 
-        async function insertConvidado(){
-            const nome = document.querySelector("#nome").value;
-            const sobrenome = document.querySelector("#sobrenome").value;
-            const cpf = document.querySelector("#cpf").value;
-            const telefone = document.querySelector("#telefone").value;
-            const email = document.querySelector("#email").value;
-            const mesa = document.querySelector("#mesas").value;
+        repeatedTask();
 
-            const inserir = await fetch(`http://localhost:3000/convidados/`, {
+
+
+        async function insertMesa(){
+            const qtd = document.querySelector("#qtd").value;
+
+            const inserir = await fetch(`http://localhost:3000/mesas/`, {
                 method : "POST",
                 headers : {
                     "Content-Type" : "application/json",
                     "x-access-token" : token
                 },
                 body : JSON.stringify({
-                    nome : nome,
-                    sobrenome : sobrenome,
-                    cpf : cpf,
-                    telefone : telefone,
-                    email : email,
-                    mesa : mesa
+                    qtd : qtd
                 })                
             });
             if(!inserir.ok){
@@ -290,7 +239,7 @@
                 if(modal){
                     modal.hide();
                 }
-                pegaConvidado();
+                pegaMesas();
                 document.querySelector("#inseridor").reset()
                 document.querySelector("#alertaVerde").classList.remove("d-none")
                 document.querySelector("#alertaVerde").classList.add("d-block")
@@ -298,7 +247,7 @@
         }
 
         async function preparaInput(id){
-            const pegador = await fetch(`http://localhost:3000/convidados?id=${id}`, {
+            const pegador = await fetch(`http://localhost:3000/mesas?id=${id}`, {
                 method : "GET",
                 headers : {
                     "Content-Type" : "application/json",
@@ -306,86 +255,50 @@
                 }
             })
 
-            const convidados = await pegador.json();
-            const convidado = convidados[0];
+            const mesas = await pegador.json();
+            const mesa = mesas[0];
+            document.querySelector("#AttId").value = mesa.id;
+            document.querySelector("#AttQtd").value = mesa.qtd;
 
-            document.querySelector("#AttId").value = convidado.id;
-            document.querySelector("#AttNome").value = convidado.nome;
-            document.querySelector("#AttSobrenome").value = convidado.sobrenome;
-            document.querySelector("#AttCpf").value = convidado.cpf;
-            document.querySelector("#AttTelefone").value = convidado.telefone;
-            document.querySelector("#AttEmail").value = convidado.email;
-            document.querySelector("#AttMesa").value = convidado.mesa;
-
-            const cpfMask = IMask(document.querySelector("#AttCpf"), {
-                mask: '000.000.000-00'
-            });
-            cpfMask.value = convidado.cpf;
-            
-            const telefoneMask = IMask(document.querySelector("#AttTelefone"), {
-                mask: '(00) 00000-0000'
-            });
-            telefoneMask.value = convidado.telefone;
         }
 
-        async function atualizaConvidado(){
+        async function atualizaMesa(){
             const id = document.querySelector("#AttId").value;
-            const nome = document.querySelector("#AttNome").value;
-            const sobrenome = document.querySelector("#AttSobrenome").value;
-            const cpf = document.querySelector("#AttCpf").value;
-            const telefone = document.querySelector("#AttTelefone").value;
-            const email = document.querySelector("#AttEmail").value;
-            const mesa = document.querySelector("#AttMesa").value;
+            const qtd = document.querySelector("#AttQtd").value;
 
-            const atualizador = await fetch(`http://localhost:3000/convidados/${id}`,{ 
+            const atualizador = await fetch(`http://localhost:3000/mesas/${id}`,{ 
                 method : "PUT",
                 headers : {
                     "Content-Type" : "application/json",
                     "x-access-token" : token
                 },
                 body : JSON.stringify({
-                    nome : nome,
-                    sobrenome : sobrenome,
-                    cpf : cpf,
-                    telefone : telefone,
-                    email : email,
-                    mesa : mesa
+                    qtd : qtd
                 })
             })
             const modal = bootstrap.Modal.getInstance(document.querySelector("#atualizaModal"));
             if(modal){
                 modal.hide();
             }
-            pegaConvidado();
+            pegaMesas();
             document.querySelector("#atualizador").reset();
             document.querySelector("#alertaAzul").classList.remove("d-none");
             document.querySelector("#alertaAzul").classList.add("d-block");
         }
     
-        async function deletaConvidado(id){
+        async function deletaMesa(id){
             if(confirm("Ah vá?")){
-                const deletar = await fetch(`http://localhost:3000/convidados/${id}`, {
+                const deletar = await fetch(`http://localhost:3000/mesas/${id}`, {
                     method : "DELETE",
                     headers : {
                         "Content-Type" : "application/json",
                         "x-access-token" : token
                     }
                 })
-                pegaConvidado();
+                pegaMesas();
                 document.querySelector("#alertaVermelho").classList.remove("d-none");
                 document.querySelector("#alertaVermelho").classList.add("d-block");
             }
-        }
-    
-        async function checkConvidado(id){
-            const check = await fetch(`http://localhost:3000/convidados/check/${id}`, {
-                method : "PUT",
-                headers : {
-                    "Content-Type" : "application/json",
-                    "x-access-token" : token
-                }
-            });
-            pegaConvidado();
         }
     </script>
 </body>

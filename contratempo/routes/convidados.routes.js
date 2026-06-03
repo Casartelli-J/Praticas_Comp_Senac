@@ -1,5 +1,6 @@
 import { Router } from "express";
 import * as convidados from "../controllers/convidado.controller.js";
+import * as validation from "../middleware/auth.js";
 
 export const convidadoRouter = Router();
 

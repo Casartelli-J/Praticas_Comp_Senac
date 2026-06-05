@@ -7,24 +7,28 @@ export const getConvidado = async (req, res) => {
     const {id} = req.query;
     const {nome} = req.query;
     const {presente} = req.query;
+    const {order} = req.query;
 
-    let sql = "SELECT * FROM convidados WHERE 1 ";
+    let sql = `SELECT c.*, m.nome as mesa, presente FROM convidados c 
+    JOIN mesas m on c.mesa = m.id WHERE 1`;
     let params = [];
 
     if(id){
-        sql += " AND id = ? ";
+        sql += " AND c.id = ? ";
         params.push(id);
     }
 
     if(nome){
-        sql += " AND nome LIKE ? ";
+        sql += " AND c.nome LIKE ? ";
         params.push(`%${nome}%`);
     }
-
+    
     if(presente){
-        sql += " AND presente = ? ";
+        sql += " AND c.presente = ? ";
         params.push(presente);
     }
+
+    order === "ASC" ? sql += " ORDER BY c.nome ASC " : sql += " ORDER BY c.nome DESC";
 
     const [rows] = await db.query(sql, params);
     res.status(200).json(rows);

@@ -30,6 +30,8 @@
                 <div class="modal-body">
                     <form class="col-12" id="atualizador">
                         <input type="hidden" id="AttId">
+                        <label>Nome da mesa:</label>
+                        <input class="form-control" type="text" id="AttNome">
                         <label>Quantidade de lugares:</label>
                         <input class="form-control" type="number" id="AttQtd">
                         <div id="erro"></div>
@@ -50,6 +52,8 @@
                 </div>
                 <div class="modal-body">
                     <form class="col-12" id="inseridor">
+                        <label>Nome da mesa:</label>
+                        <input class="form-control" type="text" id="nome">
                         <label>Quantidade de lugares:</label>
                         <input class="form-control" type="number" id="qtd">
                         <div id="erro"></div>
@@ -94,7 +98,7 @@
             </div>
             <div class="col-12 col-md-10 sidebar-md-vh">
                 <div class="container">
-                    <h2 class="mt-5 fw-bold">Dashboard:</h2>
+                    <h2 class="mt-5 fw-bold">Mesas:</h2>
                     
                     <button class="btn btn-success mt-3 mb-3 px-2 px-3" data-bs-toggle="modal" data-bs-target="#insereModal">Inserir Mesa</button>
 
@@ -102,16 +106,16 @@
                         <div class="col-12 col-md-6">
                             <div class="card py-4 text-bg-success">
                                 <div class="card-body">
-                                    <h2>Presentes:</h2>
-                                    <div class="fs-1" id="presentes"></div>
+                                    <h2>Mesas disponíveis:</h2>
+                                    <div class="fs-1" id="mesasD"></div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="card py-4 text-bg-danger">
                                 <div class="card-body">
-                                    <h2>Ausentes:</h2>
-                                    <div class="fs-1" id="ausentes"></div>
+                                    <h2>Mesas ocupadas:</h2>
+                                    <div class="fs-1" id="mesasOc"></div>
                                 </div>
                             </div>
                         </div>
@@ -135,7 +139,8 @@
                             <thead>
                                 <tr class="fw-bold">
                                     <td>Mesa</td>
-                                    <td>Cadeiras</td>
+                                    <td class="text-center">Capacidade total</td>
+                                    <td class="text-center">Lugares disponíveis</td>
                                 </tr>
                             </thead>
                             <tbody id="fds">
@@ -181,7 +186,7 @@
         
         
         async function pegaMesas(){
-            const mesas = await fetch(`http://localhost:3000/mesas/espaco?id=`, {
+            const mesas = await fetch(`http://localhost:3000/mesas?id=&nome=`, {
                 method : "GET",
                 headers : {
                     "Content-Type" : "application/json",
@@ -189,14 +194,30 @@
                 }
             });
             const lista = await mesas.json();
+            console.log(lista)
             let tabela = "";
+            let disponiveis = 0;
+            let ocupadas = 0;
+            let cor = "";
             lista.forEach(mesa => {
+                mesa.espacoTotal ? disponiveis += 1 : ocupadas += 1
+                console.log(mesa.espacoTotal / mesa.qtd * 100 >= 60)
+                if(mesa.espacoTotal / mesa.qtd * 100 >= 60){
+                    cor = "text-success";
+                }else if(mesa.espacoTotal / mesa.qtd * 100 <= 20){
+                    cor = "text-danger";
+                }else{
+                    cor = "text-warning";
+                }
                 tabela += 
                 `<tr>
                     <td>
-                        ${mesa.id}
+                        ${mesa.nome}
                     </td>
-                    <td>
+                    <td class="text-center">
+                        ${mesa.qtd}
+                    </td>
+                    <td class="text-center ${cor}">
                         ${mesa.espacoTotal}
                     </td>
                     <td>
@@ -207,6 +228,8 @@
             });
             tabela += "</tr>"
             document.querySelector("#fds").innerHTML = tabela;
+            document.querySelector("#mesasD").innerHTML = disponiveis;
+            document.querySelector("#mesasOc").innerHTML = ocupadas;
             };
         pegaMesas();
         function repeatedTask() {
@@ -219,6 +242,7 @@
 
 
         async function insertMesa(){
+            const nome = document.querySelector("#nome").value;
             const qtd = document.querySelector("#qtd").value;
 
             const inserir = await fetch(`http://localhost:3000/mesas/`, {
@@ -228,7 +252,8 @@
                     "x-access-token" : token
                 },
                 body : JSON.stringify({
-                    qtd : qtd
+                    qtd : qtd,
+                    nome : nome
                 })                
             });
             if(!inserir.ok){
@@ -256,14 +281,17 @@
             })
 
             const mesas = await pegador.json();
+            console.log(mesas)
             const mesa = mesas[0];
             document.querySelector("#AttId").value = mesa.id;
+            document.querySelector("#AttNome").value = mesa.nome;
             document.querySelector("#AttQtd").value = mesa.qtd;
 
         }
 
         async function atualizaMesa(){
             const id = document.querySelector("#AttId").value;
+            const nome = document.querySelector("#AttNome").value;
             const qtd = document.querySelector("#AttQtd").value;
 
             const atualizador = await fetch(`http://localhost:3000/mesas/${id}`,{ 
@@ -273,7 +301,8 @@
                     "x-access-token" : token
                 },
                 body : JSON.stringify({
-                    qtd : qtd
+                    qtd : qtd,
+                    nome : nome
                 })
             })
             const modal = bootstrap.Modal.getInstance(document.querySelector("#atualizaModal"));

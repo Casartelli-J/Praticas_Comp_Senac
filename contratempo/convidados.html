@@ -40,8 +40,8 @@
                         <input type="text" class="form-control mb-2" placeholder="Insira seu telefone" id="AttTelefone">
                         <p class="m-0">Email:</p>
                         <input type="text"  class="form-control mb-2" placeholder="Insira seu email" id="AttEmail">
-                        <p class="m-0">Mesa:</p>
-                        <input type="number" class="form-control mb-2" placeholder="Insira seu mesa" id="AttMesa">
+                        <p class="m-0">Mesas Disponíveis:</p>
+                        <select class="form-select" id="AttMesa"></select>
                         <div id="erro"></div>
                     </form>
                 </div>
@@ -201,6 +201,7 @@
                     "x-access-token" : token
                 }
             });
+            
             const lista = await convidados.json();
             let tabela = "";
             lista.forEach(convidado => {
@@ -213,7 +214,7 @@
                 tabela += 
                 `<tr>
                     <td>
-                        ${convidado.nome}
+                        ${convidado.nome} ${convidado.sobrenome}
                     </td>
                     <td>
                         ${convidado.email}
@@ -238,7 +239,7 @@
         
 
         async function selectMesas(){
-            const pegaMesas = await fetch("http://localhost:3000/mesas", {
+            const pegaMesas = await fetch("http://localhost:3000/mesas/espaco?id=", {
                 method : "GET",
                 headers : {
                     "Content-Type" : "application/json",
@@ -251,10 +252,12 @@
             listaSelect += `<option value="">--</option>`;
             mesas.forEach(mesa =>{
                 listaSelect += `
-                    <option>${mesa.id}</option>
+                    <option value="${mesa.id}">${mesa.nome}</option>
                 `
             });
             document.querySelector("#mesas").innerHTML = listaSelect;
+            document.querySelector("#AttMesa").innerHTML = listaSelect;
+            console.log(mesas)
         }
         selectMesas();
         
@@ -308,6 +311,7 @@
 
             const convidados = await pegador.json();
             const convidado = convidados[0];
+            console.log(convidado)
 
             document.querySelector("#AttId").value = convidado.id;
             document.querySelector("#AttNome").value = convidado.nome;

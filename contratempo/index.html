@@ -52,7 +52,7 @@
                         <table class="table table-striped m-0">
                             <thead>
                                 <tr>
-                                    <td>Nome</td>
+                                    <td><button type="button" class="btn p-0 m-0" value="ASC" id="ordem">Nome</button></td>
                                     <td>Email</td>
                                     <td>Mesa</td>
                                     <td>Presente</td>
@@ -98,14 +98,19 @@
             localStorage.clear();
             window.location.href = "login.html";
         } 
-       
-
-
         
-        async function pegaConvidado(){
+        const order = document.querySelector("#ordem");
+        document.querySelector("#ordem").addEventListener("click", ()=>{
+            order.value === "ASC" ? order.value = "DESC" : order.value = "ASC";
+            pegaConvidado(order.value)
+            console.log(order.value)
+        })
+        
+
+        async function pegaConvidado(order = "ASC"){
             const input = document.querySelector("#busca").value;
             const filtro = document.querySelector("#filtro").value;
-            const convidados = await fetch(`http://localhost:3000/convidados?nome=${input}&presente=${filtro}`, {
+            const convidados = await fetch(`http://localhost:3000/convidados?nome=${input}&presente=${filtro}&order=${order}`, {
                 method : "GET",
                 headers : {
                     "Content-Type" : "application/json",
@@ -124,7 +129,7 @@
                 tabela += 
                 `<tr>
                     <td>
-                        ${convidado.nome}
+                        ${convidado.nome} ${convidado.sobrenome}
                     </td>
                     <td>
                         ${convidado.email}
@@ -145,9 +150,7 @@
         }
         pegaConvidado();
         const select = document.querySelector("#filtro");
-        select.addEventListener("change", () =>{
-            pegaConvidado();
-        });
+        select.addEventListener("change", pegaConvidado);
    
         async function checkConvidado(id){
             const check = await fetch(`http://localhost:3000/convidados/check/${id}`, {

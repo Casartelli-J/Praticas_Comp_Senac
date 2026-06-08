@@ -76,7 +76,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" id="bt-inserir" onclick="insertConvidado()">Adicionar</button>
+                    <button type="submit" form="inseridor" class="btn btn-success" id="bt-inserir">Adicionar</button>
                 </div>
             </div>
         </div>
@@ -260,7 +260,11 @@
             console.log(mesas)
         }
         selectMesas();
-        
+        const formulario = document.querySelector("#inseridor");
+        formulario.addEventListener("submit", (event) =>{
+            event.preventDefault();
+            insertConvidado();
+        })
 
         async function insertConvidado(){
             const nome = document.querySelector("#nome").value;

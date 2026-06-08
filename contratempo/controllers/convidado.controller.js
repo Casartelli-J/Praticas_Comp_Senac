@@ -28,7 +28,9 @@ export const getConvidado = async (req, res) => {
         params.push(presente);
     }
 
-    order === "ASC" ? sql += " ORDER BY c.nome ASC " : sql += " ORDER BY c.nome DESC";
+    if(order){
+        sql += ` ORDER BY ${order}`;
+    }
 
     const [rows] = await db.query(sql, params);
     res.status(200).json(rows);

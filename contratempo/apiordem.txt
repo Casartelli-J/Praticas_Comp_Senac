@@ -1,0 +1,19 @@
+Passo 1:
+    banco(mesas, convidados, usuarios)
+    controller(convidados{CRUD_FULL(Filtros)}, Usuarios{CRUD_FULL(Filtros, bcrypt)}, Mesas{CRUD_FULL})
+    router
+    app
+    servidor
+Passo 2:
+    controller(middleWare[], login[localStorages e Token], autenticacao[Confere token])
+    Páginas[1ºIndex, 2º e em diante fica pra mim]
+    IMASK UNPKG
+Passo 3:
+    Páginas[ExportarPDF(), filtroPresenca(), ordenação()]
+Passo 4:
+    Mesas(nomeMesas(), AmostragemMesas(), presencaMesas())
+
+NECESSÁRIO AO FINALIZAR:
+    ReadMe
+
+Para comemorar a vitória precisarei criar as páginas no figma

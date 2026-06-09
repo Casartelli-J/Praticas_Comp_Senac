@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body>
+    <header class="container-fluid">
+        <div class="row d-flex bg-dark py-2">
+            <div class="col-2 text-center text-primary">
+                <h1>Casamento</h1>
+            </div>
+            <div class="col-2 text-white">
+                <p>Seja bem vindo</p><p id="nomeUsuario"></p>
+            </div>
+        </div>
+    </header>
+
+    <section class="container">
+        <div class="row mt-5">
+            <form class="d-flex flex-wrap mb-3">
+                <div class="col-11">
+                    <input class="form-control py-2" type="text" id="nome">
+                </div>
+                <div class="col-1 ">
+                    <button class="btn btn-outline-success py-2" type="button" onclick="pegaConvidado()">Buscar</button>
+                </div>
+            </form>
+
+            <table class="table table-dark table-striped">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Mesa</th>
+                        <th id="botoes"></th>
+                    </tr>
+                </thead>
+                <tbody id="convidados">                  
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <script>
+        async function pegaConvidado(){
+            const nome = document.querySelector("#nome").value;
+            const buscaConvidado = await fetch(`http://localhost:3000/convidados?nome=${nome}`, {
+                method : "GET",
+                headers : {
+                    "Content-Type" : "application/json",
+                    // "x-access-token" : token
+                }
+            })
+            const listaConvidados = await buscaConvidado.json();
+            let tabela = "";
+            listaConvidados.forEach(convidado => {
+                tabela += `
+                    <tr>
+                        <td>
+                            ${convidado.nome}
+                        </td>
+                        <td>
+                            ${convidado.email}
+                        </td>
+                        <td>
+                            ${convidado.mesa}
+                        </td>
+                        <td>
+                            Espaco botoes
+                        </td>
+                    </tr>`
+            });
+            document.querySelector("#convidados").innerHTML = tabela;
+        }
+        pegaConvidado()
+    </script>
+    
+</body>
+</html>

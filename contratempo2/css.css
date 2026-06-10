@@ -1,0 +1,12 @@
+.logText{
+    font-size: 7vh;
+}
+
+.translucido{
+    background-color: rgba(10, 10, 10, 0.541);
+}
+
+body{
+    background-color: rgb(32, 15, 54);
+}
+

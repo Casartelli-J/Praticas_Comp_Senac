@@ -5,7 +5,7 @@ import jswt from "jsonwebtoken";
 export const login = async (req, res) => {
     const {email} = req.body;
     const {senha} = req.body;
-    const sql = "SELECT * FROM usuarios WHERE email= ?"
+    const sql = "SELECT * FROM usuarios WHERE email = ?"
     if(email && senha){
         const [login] = await db.query(sql, [email]);
         console.log(login)

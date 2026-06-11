@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,9 +12,10 @@
         <div class="row d-flex justify-content-between bg-dark py-2">
             <div class="col-6 d-flex align-items-center text-center">
                 <h1 class="text-primary">Casamento</h1>            
-                <p class="text-white mt-3 ms-3" id="nomeUser">Seja bem vindo: </p>
+                <p class="text-white mt-3 ms-3" id="nomeUser">Seja bem vindo:</p>
             </div>
             <div class="col-2 align-self-center">
+                <button type="button" class="btn btn-primary" onclick="retorno()">Dashboard</button>
                 <button type="button" class="btn btn-danger" onclick="sair()">Sair</button>
             </div>
         </div>
@@ -59,6 +60,10 @@
         async function sair(){
             localStorage.clear();
             window.location = "login.html";
+        }
+
+        async function retorno(){
+            window.location = "dashboard.html";
         }
 
         async function pegaConvidado(){

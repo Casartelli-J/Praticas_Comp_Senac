@@ -1,12 +1,24 @@
+body{
+    background-color: rgb(32, 15, 54);
+}
+
+#corpo{
+    background-color: antiquewhite;
+}
+
+.coluna{
+    height: 100vh;
+}
+
 .logText{
     font-size: 7vh;
 }
 
 .translucido{
-    background-color: rgba(10, 10, 10, 0.541);
+    background-color: rgba(255, 255, 255, 0.04);
 }
 
-body{
-    background-color: rgb(32, 15, 54);
+.algo .invalid-tooltip{
+    right: 0;
 }
 

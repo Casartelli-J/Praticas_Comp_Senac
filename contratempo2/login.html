@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,32 +9,30 @@
     <title>Login</title>
 </head>
 <body>
+    <h1 class="col-12 my-5 text-center text-white logText rounded">Faça seu Login:</h1>
     <section class="container">
-        <div class="row">
-            <div class="col-12 d-flex flex-wrap justify-content-center">
-                <h1 class="col-12 my-5 text-center text-white logText rounded">Faça seu Login:</h1>
-                <div class="alert alert-danger" hidden id="alerta">
+        <div class="row d-flex flex-wrap justify-content-center">
+            <div class="col-12 col-md-6 my-5">
+                <div class="alert alert-danger" style="display: none;" id="alerta">
                     Email ou Senha incorretos!
                 </div>
-                <div class="col-12 d-flex justify-content-center mt-3 translucido rounded-5">
-                    <form class="col-12 p-5 needs-validation" id="formLogin">
-                        <div class="col-12 mb-4">
-                            <label class="form-label text-white">Email:</label>
-                            <input type="email" id="email" class="form-control p-2" placeholder="Insira seu email">
+                <form class="p-5 needs-validation translucido rounded-5" id="formLogin" novalidate>
+                    <div class="col-12 mb-4 position-relative emailForm algo">
+                        <label class="form-label text-white">Email:</label>
+                        <input type="email" id="email" class="form-control p-2" placeholder="Insira seu email">
+                        <div class="invalid-tooltip">
+                            E-mail faltante
                         </div>
-                        <div class="valid-feedback">
-                            Ok
+                    </div>
+                    <div class="col-12 mb-3 position-relative senhaForm algo">
+                        <label class="form-label text-white">Senha:</label>
+                        <input type="password" id="senha" class="form-control p-2" placeholder="Insira sua senha">
+                        <div class="invalid-tooltip">
+                            Senha faltante
                         </div>
-                        <div class="invalid-feedback">
-                            No
-                        </div>
-                        <div class="col-12 mb-3">
-                            <label class="form-label text-white">Senha:</label>
-                            <input type="password" id="senha" class="form-control p-2" placeholder="Insira sua senha">
-                        </div>
-                        <button type="submit" class="btn btn-success">Logar</button>
-                    </form>
-                </div>
+                    </div>
+                    <button type="submit" class="btn btn-success">Logar</button>
+                </form>                
             </div>
         </div>
     </section>
@@ -63,8 +61,7 @@
                 localStorage.setItem("token", token);
                 window.location = "index.html";
             }else{
-                document.querySelector("#alerta").hidden = false
-                document
+                document.querySelector("#alerta").style.display = "block";
             }
         }
 
@@ -74,19 +71,13 @@
         })
     
 
-        const forms = document.querySelectorAll('.needs-validation')
-
-
-  
-        forms.forEach(form => {
-            form.addEventListener('focusout', event => {
-            if (!form.checkValidity()) {
-                event.preventDefault()
-                event.stopPropagation()
-            }
-
-            form.classList.add('was-validated')
-            }, false)
+        const email = document.querySelector(".emailForm");
+        email.addEventListener("focusout", () => {
+            email.classList.add("was-validated");
+        })
+        const senha = document.querySelector(".senhaForm");
+        senha.addEventListener("focusout", () => {
+            senha.classList.add("was-validated");
         })
 
     </script>

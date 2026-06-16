@@ -34,13 +34,28 @@ export const getConvidado = async (req, res) => {
 }
 
 export const postConvidado = async (req, res) => {
-    const {nome, sobrenome, cpf, telefone, email, mesa} = req.body;
+    let {nome, sobrenome, cpf, telefone, email, mesa} = req.body;
     const sql = "INSERT INTO convidados(nome, sobrenome, cpf, telefone, email, mesa) VALUES (?, ?, ?, ?, ?, ?)";
+    const prefixos = ["gmail.com", "yahoo.com", "outlook.com"]
+    let erros = []
+    if(nome.length < 3 || sobrenome.length < 3){
+        erros.push("Preencha com nome completo")
+        nome = "";
+        sobrenome = "";
+    }
+    if(cpf.length < 14){
+        erros.push("Cpf incorreto")
+        cpf = "";
+    }
     if(nome && sobrenome && cpf && telefone && email && mesa){
         const [post] = await db.query(sql, [nome, sobrenome, cpf, telefone, email, mesa])
         res.status(201).json(`Convidado: ${nome} cadastrado com sucesso `)
     }else{
-        res.status(404).json("Dados faltantes")
+        res.status(404).json(
+            erros.map((erro) => ({
+                erro
+            }))
+        )
     }    
 }
 

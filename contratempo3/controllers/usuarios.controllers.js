@@ -45,10 +45,10 @@ export const postUsuario = async (req, res) => {
 export const putUsuario = async (req, res) => {
     const {id} = req.params;
     const {cargo_id, nome, cpf, telefone, email, senha} = req.body;
-    const sql = "UPDATE usuarios SET cargo_id = ?, nome = ?, cpf = ?, telefone = ?, email = ?, senha = ?";
+    const sql = "UPDATE usuarios SET cargo_id = ?, nome = ?, cpf = ?, telefone = ?, email = ?, senha = ? WHERE id = ?";
 
     if(cargo_id && nome && cpf && telefone && email && senha){
-        const [result] = await db.query(sql, [cargo_id, nome, cpf, telefone, email, senha]);
+        const [result] = await db.query(sql, [cargo_id, nome, cpf, telefone, email, senha, id]);
         res.status(201).json("Usuário inserido com sucesso");
     }else{
         res.status(404).json("Dados faltantes");

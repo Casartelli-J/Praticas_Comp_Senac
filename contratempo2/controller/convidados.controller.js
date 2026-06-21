@@ -6,7 +6,7 @@ export const getConvidado = async (req, res) => {
     const {presente} = req.query;
     const {ordem} = req.query;
 
-    let sql = " SELECT c.*, m.nome as mesa FROM convidados c LEFT JOIN mesas m ON c.mesa = m.id ";
+    let sql = " SELECT c.*, m.nome as mesa FROM convidados c LEFT JOIN mesas m ON c.mesa = m.id WHERE 1";
     let params = [];
 
     if(id){
@@ -25,7 +25,7 @@ export const getConvidado = async (req, res) => {
     }
 
     if(ordem){
-        sql += ` GROUP BY ${ordem}`;
+        sql += ` ORDER BY ${ordem}`;
         params.push(ordem);
     }
 
@@ -34,13 +34,28 @@ export const getConvidado = async (req, res) => {
 }
 
 export const postConvidado = async (req, res) => {
-    const {nome, sobrenome, cpf, telefone, email, mesa} = req.body;
+    let {nome, sobrenome, cpf, telefone, email, mesa} = req.body;
     const sql = "INSERT INTO convidados(nome, sobrenome, cpf, telefone, email, mesa) VALUES (?, ?, ?, ?, ?, ?)";
+    const prefixos = ["gmail.com", "yahoo.com", "outlook.com"]
+    let erros = []
+    if(nome.length < 3 || sobrenome.length < 3){
+        erros.push("Preencha com nome completo")
+        nome = "";
+        sobrenome = "";
+    }
+    if(cpf.length < 14){
+        erros.push("Cpf incorreto")
+        cpf = "";
+    }
     if(nome && sobrenome && cpf && telefone && email && mesa){
         const [post] = await db.query(sql, [nome, sobrenome, cpf, telefone, email, mesa])
         res.status(201).json(`Convidado: ${nome} cadastrado com sucesso `)
     }else{
-        res.status(404).json("Dados faltantes")
+        res.status(404).json(
+            erros.map((erro) => ({
+                erro
+            }))
+        )
     }    
 }
 
@@ -66,5 +81,25 @@ export const deleteConvidado = async (req, res) => {
         res.status(200).json(`Convidado deletado com sucesso`);
     }else{
         res.status(404).json("Id não encontrada");
+    }
+}
+
+export const presencaConvidado = async (req, res) => {
+    const {id} = req.params;
+    const busca = "SELECT * FROM convidados WHERE id = ?";
+    const [convidados] = await db.query(busca, [id]);
+    if(convidados != ""){
+        const convidado = convidados[0];
+        let sql = `UPDATE convidados SET presente =`;
+        if(convidado.presente === 0){
+            sql += " 1 "
+        }else{
+            sql += " 0 "
+        }
+        sql += `WHERE id = ${convidado.id}`;
+        const [presenca] = await db.query(sql)
+        res.status(200).json(`Convidado: ${convidado.nome} atualizado com sucesso`);
+    }else{
+        res.status(404).json("Convidado não encontrado");
     }
 }

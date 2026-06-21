@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 27/05/2026 às 16:58
+-- Tempo de geração: 17/06/2026 às 19:04
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -43,9 +43,10 @@ CREATE TABLE `convidados` (
 --
 
 INSERT INTO `convidados` (`id`, `nome`, `sobrenome`, `cpf`, `telefone`, `email`, `mesa`, `presente`) VALUES
-(1, 'Rafaela Guimarães', 'Sla o outro sobrenome', '213542154621', '5194456844', 'RafadoDanii@gmail.com', 2, 0),
-(2, 'Mariana Sla das quanta', 'Das quanta', '21354215', '51944568512', 'JaleuMtAnimeEsseAno@gmail.com', 2, 0),
-(3, 'Robert', 'Mark Lucena', '2564885216', '51967421569', 'morangueteAbacutoSixSeven@gmail.com', 2, 0);
+(13, 'Joao', 'Vinicius', '231.232.131-31', '(21) 31231-2312', 'vinicios@gmail.com', 1, 1),
+(14, 'Ruan', 'Estevon', '546.546.546-54', '(49) 84654-9864', 'estevon@gmail.com', 6, 0),
+(15, 'CLaudio', 'dwadwad', '454.646.465-41', '(65) 41654-1641', 'dmwpojd@gmail.com', 6, 0),
+(16, 'Chester', 'Bennington', '465.165.498-51', '(55) 19561-6541', 'linkin@gmail.com', 6, 0);
 
 -- --------------------------------------------------------
 
@@ -55,17 +56,21 @@ INSERT INTO `convidados` (`id`, `nome`, `sobrenome`, `cpf`, `telefone`, `email`,
 
 CREATE TABLE `mesas` (
   `id` int(11) NOT NULL,
-  `qtd` int(11) NOT NULL
+  `qtd` int(11) NOT NULL,
+  `nome` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `mesas`
 --
 
-INSERT INTO `mesas` (`id`, `qtd`) VALUES
-(1, 10),
-(2, 10),
-(3, 10);
+INSERT INTO `mesas` (`id`, `qtd`, `nome`) VALUES
+(1, 10, 'Mesa do meio'),
+(2, 10, 'Avós'),
+(3, 5, 'Tios'),
+(4, 6, 'Madrinhas'),
+(6, 3, 'Padrinhos'),
+(7, 5, 'Mesa Kids');
 
 -- --------------------------------------------------------
 
@@ -88,9 +93,9 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `tipo`, `nome`, `cpf`, `telefone`, `email`, `senha`) VALUES
-(1, 0, 'João Vitor', '60037410075', '51985611921', 'joaosalaberry@gmail.com', '$2b$10$WzQPDvAiH2soH3ihh6aZee2MCsEUVmwT.6ZoKl5pZAzehVg6dsTn2'),
-(2, 1, 'Pedro Gigi', '50021548951', '51955648123', 'PedroAmaJulia@gmail.com', '$2b$10$EXH5mZePVfomh0eFUJbvbeDtejM.TrFT53z5nKxRtpG36NUltibAC'),
-(3, 1, 'Adalto Ass', '554896248856', '51946455521352', 'Adalto@gmail.com', '$2b$10$lKyxFOpIF7Rl1Ot7mkxQP.Mordv4m/Z2iY5yD4qpaLxclabLml1c2');
+(2, 1, 'Pedro Gigi', '500.215.489-51', '(51) 95564-8123', 'PedroAmaJulia@gmail.com', '$2b$10$EXH5mZePVfomh0eFUJbvbeDtejM.TrFT53z5nKxRtpG36NUltibAC'),
+(3, 1, 'Adalto Ass', '554.896.248-85', '(51) 94645-5521', 'Adalto@gmail.com', '$2b$10$.tsOH/YSl7IhfyQ8p8xd8umpOZaV/ozErgtplFUgfajJR/2wrFi..'),
+(19, 0, 'Joao', '600.374.100-75', '(51) 99682-8000', 'joaosalaberry@gmail.com', '$2b$10$XPMqOvqB3RA4nfdWi/xgd.0vQ290WPm8cG4.nCoDTdyx2jq1MAVYa');
 
 --
 -- Índices para tabelas despejadas
@@ -129,19 +134,19 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `convidados`
 --
 ALTER TABLE `convidados`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de tabela `mesas`
 --
 ALTER TABLE `mesas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Restrições para tabelas despejadas

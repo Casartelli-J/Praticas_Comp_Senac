@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css.css">    
+    <title>Login</title>
+</head>
+<body>
+    <h1 class="col-12 my-5 text-center text-white logText rounded">Faça seu Login:</h1>
+    <section class="container">
+        <div class="row d-flex flex-wrap justify-content-center">
+            <div class="col-12 col-md-6 my-5">
+                <div class="alert alert-danger" style="display: none;" id="alerta">
+                    Email ou Senha incorretos!
+                </div>
+                <form class="p-5 needs-validation translucido rounded-5" id="formLogin" novalidate>
+                    <div class="col-12 mb-4 position-relative emailForm algo">
+                        <label class="form-label text-white">Email:</label>
+                        <input type="email" id="email" class="form-control p-2" placeholder="Insira seu email">
+                        <div class="invalid-tooltip">
+                            E-mail faltante
+                        </div>
+                    </div>
+                    <div class="col-12 mb-3 position-relative senhaForm algo">
+                        <label class="form-label text-white">Senha:</label>
+                        <input type="password" id="senha" class="form-control p-2" placeholder="Insira sua senha">
+                        <div class="invalid-tooltip">
+                            Senha faltante
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success">Logar</button>
+                </form>                
+            </div>
+        </div>
+    </section>
+
+
+    <script>
+
+        async function login(){
+            const email = document.querySelector("#email").value;
+            const senha = document.querySelector("#senha").value;
+
+            const logar = await fetch("http://localhost:3000/login",{
+                method : "POST",
+                headers : {
+                    "Content-Type" : "application/json"
+                },
+                body : JSON.stringify({
+                    email : email,
+                    senha : senha
+                })
+            })
+            const logado = await logar.json()
+            console.log(logado)
+            const token = logado.token
+            if(logar.ok){
+                localStorage.setItem("token", token);
+                window.location = "index.html";
+            }else{
+                document.querySelector("#alerta").style.display = "block";
+            }
+        }
+
+        document.querySelector("#formLogin").addEventListener("submit", event =>{
+            event.preventDefault();
+            login();
+        })
+    
+
+        const email = document.querySelector(".emailForm");
+        email.addEventListener("focusout", () => {
+            email.classList.add("was-validated");
+        })
+        const senha = document.querySelector(".senhaForm");
+        senha.addEventListener("focusout", () => {
+            senha.classList.add("was-validated");
+        })
+
+    </script>
+</body>
+</html>

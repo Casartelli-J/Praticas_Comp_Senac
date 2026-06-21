@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body>
+    <header class="container-fluid">
+        <div class="row d-flex justify-content-between bg-dark py-2">
+            <div class="col-6 d-flex align-items-center text-center">
+                <h1 class="text-primary">Casamento</h1>            
+                <p class="text-white mt-3 ms-3" id="nomeUser">Seja bem vindo:</p>
+            </div>
+            <div class="col-2 align-self-center">
+                <button type="button" class="btn btn-primary" onclick="retorno()">Dashboard</button>
+                <button type="button" class="btn btn-danger" onclick="sair()">Sair</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="container">
+        <div class="row mt-5">
+            <form class="d-flex flex-wrap mb-3">
+                <div class="col-11">
+                    <input class="form-control py-2" type="text" id="nome">
+                </div>
+                <div class="col-1 ">
+                    <button class="btn btn-outline-success py-2" type="button" onclick="pegaConvidado()">Buscar</button>
+                </div>
+            </form>
+
+            <table class="table table-dark table-striped">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Mesa</th>
+                        <th id="botoes"></th>
+                    </tr>
+                </thead>
+                <tbody id="convidados">                  
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <script>
+        const token = localStorage.getItem("token")
+        async function verificaToken(){
+            if(!token){
+                alert("Você não tem permissão")
+                window.location = "login.html"
+            }
+        }
+        verificaToken()
+
+        async function sair(){
+            localStorage.clear();
+            window.location = "login.html";
+        }
+
+        async function retorno(){
+            window.location = "dashboard.html";
+        }
+
+        async function pegaConvidado(){
+            const nome = document.querySelector("#nome").value;
+            const buscaConvidado = await fetch(`http://localhost:3000/convidados?nome=${nome}`, {
+                method : "GET",
+                headers : {
+                    "Content-Type" : "application/json",
+                    "x-access-token" : token
+                }
+            })
+            const listaConvidados = await buscaConvidado.json();
+            let tabela = "";
+            listaConvidados.forEach(convidado => {
+                tabela += `
+                    <tr>
+                        <td>
+                            ${convidado.nome}
+                        </td>
+                        <td>
+                            ${convidado.email}
+                        </td>
+                        <td>
+                            ${convidado.mesa}
+                        </td>
+                        <td>
+                            Espaco botoes
+                        </td>
+                    </tr>`
+            });
+            document.querySelector("#convidados").innerHTML = tabela;
+        }
+        pegaConvidado()
+    </script>
+    
+</body>
+</html>
